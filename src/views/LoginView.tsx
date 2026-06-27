@@ -71,12 +71,13 @@ interface LoginViewProps {
 
 export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateUserAccount, onLoginAudit }: LoginViewProps) {
   const loginMode = useMemo(() => {
-    if (typeof window === 'undefined') return { isAdminLogin: false, allowAccessRequest: false, schoolParam: '' };
+    if (typeof window === 'undefined') return { isAdminLogin: false, allowAccessRequest: false, schoolParam: '', roleParam: '' };
     const params = new URLSearchParams(window.location.search);
     return {
       isAdminLogin: params.get('admin') === '1' || window.location.pathname.includes('admin-login'),
       allowAccessRequest: params.get('request') === '1',
-      schoolParam: params.get('school') || ''
+      schoolParam: params.get('school') || '',
+      roleParam: (params.get('role') || '').toLowerCase()
     };
   }, []);
   const [activeTab, setActiveTab] = useState<'super' | 'school' | 'request' | 'forgot'>(loginMode.isAdminLogin ? 'super' : 'school');
@@ -104,19 +105,30 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
   const selectedSchool = schools.find(s => s.id === selectedSchoolId);
 
   useEffect(() => {
-    if (!loginMode.schoolParam) return;
+    if (!loginMode.schoolParam && !loginMode.roleParam) return;
     const wanted = loginMode.schoolParam.toLowerCase();
-    const matchedSchool = schools.find(s =>
+    const matchedSchool = wanted ? schools.find(s =>
       s.id.toLowerCase() === wanted ||
       s.code.toLowerCase() === wanted ||
       s.name.toLowerCase().replace(/\s+/g, '-') === wanted
-    );
+    ) : schools.find(s => s.id === selectedSchoolId);
     if (matchedSchool) {
       setSelectedSchoolId(matchedSchool.id);
-      setSchoolEmail('');
       setActiveTab('school');
+      const roleMap: Record<string, string> = {
+        manager: matchedSchool.adminEmail,
+        principal: matchedSchool.adminEmail,
+        head: matchedSchool.adminEmail,
+        teacher: 'm.brody@centralcrest.edu',
+        parent: 'r.vance@gmail.com',
+        student: 'j.vance@centralcrest.edu'
+      };
+      const roleEmail = roleMap[loginMode.roleParam];
+      const canUseCentralDemoRole = matchedSchool.id === 'school_central_crest' || ['manager', 'principal', 'head'].includes(loginMode.roleParam);
+      setSchoolEmail(roleEmail && canUseCentralDemoRole ? roleEmail : '');
+      setSchoolPassword('admin123');
     }
-  }, [loginMode.schoolParam, schools]);
+  }, [loginMode.schoolParam, loginMode.roleParam, schools, selectedSchoolId]);
 
   // Sync admin email when changing schools in dropdown list
   const handleSchoolSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
