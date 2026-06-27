@@ -1,0 +1,6 @@
+{
+  "name": "EduCore AI",
+  "description": "Professional multi-tenant school management platform styled like an enterprise core banking interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
