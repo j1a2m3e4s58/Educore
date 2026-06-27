@@ -3,8 +3,8 @@ build/
 dist/
 deploy/
 coverage/
-data/
-data-reset-test/
+/data/
+/data-reset-test/
 .DS_Store
 *.log
 .env*
