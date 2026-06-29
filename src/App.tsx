@@ -3545,7 +3545,7 @@ export default function App() {
       {toast && (
         <div 
           onClick={() => setToast(null)}
-          className={`fixed bottom-5 left-1/2 right-auto z-50 w-[calc(100vw-2rem)] max-w-[330px] -translate-x-1/2 p-3.5 sm:bottom-6 sm:left-auto sm:right-6 sm:w-auto sm:max-w-sm sm:translate-x-0 sm:p-4 rounded-xl sm:rounded-md border flex items-center gap-3 shadow-2xl cursor-pointer animate-in slide-in-from-bottom-5 duration-200 ${
+          className={`fixed bottom-24 left-1/2 right-auto z-50 w-[calc(100vw-2rem)] max-w-[330px] -translate-x-1/2 p-3.5 sm:bottom-6 sm:left-auto sm:right-6 sm:w-auto sm:max-w-sm sm:translate-x-0 sm:p-4 rounded-xl sm:rounded-md border flex items-center gap-3 shadow-2xl cursor-pointer animate-in slide-in-from-bottom-5 duration-200 ${
             toast.type === 'success' 
               ? 'bg-white border-emerald-250 text-slate-900 select-all' 
               : toast.type === 'error'
