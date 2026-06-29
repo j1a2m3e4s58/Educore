@@ -198,7 +198,7 @@ export default function AttendanceManagement({ user, currentTenant }: Attendance
   };
 
   return (
-    <div id="attendance-section" className="space-y-6 scroll-mt-4">
+    <div id="attendance-section" className="attendance-page space-y-6 scroll-mt-4">
 
       {/* TOP HEADER */}
       <div className="bg-white rounded border border-[#E2E8F0] p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">

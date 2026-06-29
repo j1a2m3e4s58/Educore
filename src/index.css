@@ -896,4 +896,257 @@ textarea:focus {
   .teacher-dashboard-page .teacher-quick-panel p {
     font-size: 0.67rem;
   }
+
+  /* Second mobile pass: Students, Teachers, Fees, Materials, Attendance. */
+  .students-management-page,
+  .teachers-management-page,
+  .fees-management-page,
+  .materials-page,
+  .attendance-page {
+    gap: 0.85rem;
+  }
+
+  .students-management-page > div:first-child,
+  .teachers-management-page > div:first-child,
+  .fees-management-page > div:first-child,
+  .materials-page > div:first-child,
+  .attendance-page > div:first-child {
+    padding: 1rem !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  }
+
+  .students-management-page > div:first-child h2,
+  .teachers-management-page > div:first-child h2,
+  .fees-management-page > div:first-child h2,
+  .materials-page > div:first-child h1,
+  .attendance-page > div:first-child h1 {
+    font-size: 1.18rem !important;
+    line-height: 1.16 !important;
+  }
+
+  .students-management-page > div:first-child p,
+  .teachers-management-page > div:first-child p,
+  .fees-management-page > div:first-child p,
+  .materials-page > div:first-child p,
+  .attendance-page > div:first-child p {
+    font-size: 0.74rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .students-management-page > div:nth-child(2),
+  .teachers-management-page > div:nth-child(2),
+  .fees-management-page div:has(> input[placeholder*="Search invoice"]),
+  .materials-page > div:nth-child(5),
+  .attendance-page form > div:first-child {
+    padding: 0.85rem !important;
+    border-color: #cbd5e1 !important;
+  }
+
+  .students-management-page input,
+  .students-management-page select,
+  .teachers-management-page input,
+  .teachers-management-page select,
+  .fees-management-page input,
+  .fees-management-page select,
+  .fees-management-page textarea,
+  .materials-page input,
+  .materials-page select,
+  .materials-page textarea,
+  .attendance-page input,
+  .attendance-page select,
+  .attendance-page textarea {
+    min-height: 2.9rem !important;
+    border-color: #b6c3d4 !important;
+    background: #fff !important;
+    font-size: 0.9rem !important;
+    font-weight: 750 !important;
+    color: #0f172a !important;
+  }
+
+  .students-management-page button,
+  .teachers-management-page button,
+  .fees-management-page button,
+  .materials-page button,
+  .attendance-page button {
+    min-height: 2.75rem;
+    font-size: 0.78rem !important;
+  }
+
+  .students-management-page article,
+  .teachers-management-page tbody tr,
+  .fees-management-page tbody tr,
+  .materials-page [class*="border"][class*="bg-white"],
+  .attendance-page tbody tr {
+    border-color: #cbd5e1 !important;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
+  }
+
+  .students-management-page article {
+    padding: 0.9rem !important;
+    gap: 0.7rem !important;
+  }
+
+  .students-management-page article img {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+
+  .students-management-page article .grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .students-management-page article .grid > div {
+    padding: 0.7rem !important;
+  }
+
+  .students-management-page article .grid.grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .students-management-page .fixed.inset-0 > div,
+  .teachers-management-page .fixed.inset-0 > div,
+  .fees-management-page .fixed.inset-0 > div,
+  .materials-page .fixed.inset-0 > div,
+  .attendance-page .fixed.inset-0 > div {
+    width: min(100%, 30rem) !important;
+    max-height: calc(100vh - 1.25rem) !important;
+  }
+
+  .students-management-page .fixed form,
+  .teachers-management-page .fixed form,
+  .fees-management-page .fixed form,
+  .materials-page .fixed form,
+  .attendance-page .fixed form {
+    padding: 1rem !important;
+    max-height: calc(100vh - 7rem) !important;
+  }
+
+  .students-management-page .fixed .grid,
+  .teachers-management-page .fixed .grid,
+  .fees-management-page .fixed .grid,
+  .materials-page .fixed .grid,
+  .attendance-page .fixed .grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .teachers-management-page #timetable-section {
+    padding: 0.9rem !important;
+  }
+
+  .teachers-management-page #timetable-section > div:nth-child(4) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .teachers-management-page #timetable-section > div:nth-child(4) > div {
+    min-width: max-content;
+  }
+
+  .teachers-management-page #timetable-section .grid {
+    gap: 0.65rem !important;
+  }
+
+  .teachers-management-page #timetable-section select {
+    min-width: 10rem;
+  }
+
+  .teachers-management-page table,
+  .fees-management-page table,
+  .attendance-page table {
+    min-width: 0 !important;
+  }
+
+  .fees-management-page > div:first-child > div:last-child {
+    width: 100%;
+  }
+
+  .fees-management-page > div:first-child select,
+  .fees-management-page > div:first-child button {
+    width: 100%;
+  }
+
+  .fees-management-page > div:nth-of-type(3) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .fees-management-page > div:nth-of-type(3) > div {
+    padding: 0.8rem !important;
+  }
+
+  .fees-management-page > div:nth-of-type(3) h3 {
+    font-size: 1.2rem !important;
+  }
+
+  .fees-management-page .flex.border-b {
+    overflow-x: auto;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  .fees-management-page .flex.border-b button {
+    min-width: max-content;
+    white-space: nowrap;
+  }
+
+  .fees-management-page tbody tr {
+    padding: 0 !important;
+  }
+
+  .fees-management-page td[data-mobile-label]::before,
+  .attendance-page td[data-mobile-label]::before,
+  .teachers-management-page td[data-mobile-label]::before {
+    color: #475569;
+  }
+
+  .materials-page > div:nth-child(4),
+  .materials-page > div:nth-child(5) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .materials-page > div:nth-child(4) > button,
+  .materials-page > div:nth-child(5) > div,
+  .materials-page article,
+  .materials-page [class*="hover:border-blue"] {
+    padding: 0.85rem !important;
+  }
+
+  .materials-page .grid {
+    gap: 0.65rem !important;
+  }
+
+  .materials-page [class*="max-h-[160px]"] {
+    max-height: 12rem !important;
+  }
+
+  .attendance-page > div:first-child > div:last-child,
+  .attendance-page > div:first-child > .flex {
+    width: 100%;
+  }
+
+  .attendance-page #btn-new-attendance {
+    width: 100%;
+    justify-content: center;
+    min-height: 3rem;
+  }
+
+  .attendance-page form > div:first-child {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+
+  .attendance-page form > div:first-child > div {
+    min-width: 0 !important;
+  }
+
+  .attendance-page [class*="grid-cols-4"],
+  .attendance-page [class*="grid-cols-5"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .attendance-page .overflow-x-auto {
+    overflow-x: visible !important;
+  }
 }

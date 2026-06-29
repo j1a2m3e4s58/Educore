@@ -263,7 +263,7 @@ export default function StudentsManagement({ tenantId }: StudentsManagementProps
   });
 
   return (
-    <div className="space-y-6">
+    <div className="students-management-page space-y-6">
       
       {/* HEADER BAR */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between bg-white p-4 sm:p-5 rounded-2xl sm:rounded border border-slate-100 shadow-sm gap-4">

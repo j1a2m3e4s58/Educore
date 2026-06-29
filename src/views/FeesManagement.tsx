@@ -474,7 +474,7 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
   });
 
   return (
-    <div id="fees-section" className="space-y-6 select-text scroll-mt-4">
+    <div id="fees-section" className="fees-management-page space-y-6 select-text scroll-mt-4">
       
       {/* PAGE BANNER BAR */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white p-5 rounded-lg border border-slate-200">

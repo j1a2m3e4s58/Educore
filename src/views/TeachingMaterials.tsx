@@ -343,7 +343,7 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
   });
 
   return (
-    <div id="materials-section" className="space-y-6 scroll-mt-4">
+    <div id="materials-section" className="materials-page space-y-6 scroll-mt-4">
 
       {/* TOP HEADER BAR */}
       <div className="bg-white rounded border border-[#E2E8F0] p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">

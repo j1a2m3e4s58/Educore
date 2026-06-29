@@ -595,7 +595,7 @@ export default function TeachersManagement({ tenantId, setActiveTab }: TeachersM
   });
 
   return (
-    <div className="space-y-6">
+    <div className="teachers-management-page space-y-6">
       
       {/* HEADER SECTION */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-5 rounded border border-slate-100 shadow-sm gap-4">
