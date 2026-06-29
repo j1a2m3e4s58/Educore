@@ -195,7 +195,7 @@ export default function TeacherDashboard({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="teacher-dashboard-page space-y-6">
 
       {/* ACTIVE OVERSIGHT ALERTS SECTION */}
       {teacherQueries.length > 0 && (
@@ -259,6 +259,44 @@ export default function TeacherDashboard({
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
             ACTIVE SESSION
           </div>
+        </div>
+      </div>
+
+      <div className="teacher-mobile-start hidden bg-white border border-[#E2E8F0] p-3 shadow-sm">
+        <p className="text-[11px] font-black uppercase tracking-wide text-[#1A56DB]">Start work</p>
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={() => onQuickAction ? onQuickAction('attendance') : setActiveTab('teacher-attendance')}
+            className="border border-emerald-200 bg-emerald-50 px-3 py-3 text-left text-xs font-black text-emerald-800"
+          >
+            Mark Attendance
+            <span className="mt-0.5 block text-[10px] font-semibold text-emerald-700">Today class</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('teacher-materials')}
+            className="border border-blue-200 bg-blue-50 px-3 py-3 text-left text-xs font-black text-blue-800"
+          >
+            Materials
+            <span className="mt-0.5 block text-[10px] font-semibold text-blue-700">Upload or view</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => onQuickAction ? onQuickAction('assignment') : setActiveTab('teacher-assignments')}
+            className="border border-amber-200 bg-amber-50 px-3 py-3 text-left text-xs font-black text-amber-800"
+          >
+            Assignment
+            <span className="mt-0.5 block text-[10px] font-semibold text-amber-700">Give class work</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => onQuickAction ? onQuickAction('lesson') : setActiveTab('teacher-lessons')}
+            className="border border-indigo-200 bg-indigo-50 px-3 py-3 text-left text-xs font-black text-indigo-800"
+          >
+            Lesson Note
+            <span className="mt-0.5 block text-[10px] font-semibold text-indigo-700">Record pages</span>
+          </button>
         </div>
       </div>
 
@@ -360,7 +398,7 @@ export default function TeacherDashboard({
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="teacher-metric-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         
         <div className="bg-white p-5 rounded border border-[#E2E8F0] shadow-2xs hover:border-blue-400 transition-colors">
           <div className="flex justify-between items-center text-slate-400">
@@ -430,7 +468,7 @@ export default function TeacherDashboard({
       </div>
 
       {/* QUICK ACTIONS PANEL - PROMINENT BLUE ROW */}
-      <div className="bg-gradient-to-r from-[#0F2942] to-[#0A1A2D] text-white p-6 rounded border border-slate-800 shadow-md">
+      <div className="teacher-quick-panel bg-gradient-to-r from-[#0F2942] to-[#0A1A2D] text-white p-6 rounded border border-slate-800 shadow-md">
         <h3 className="text-xs font-semibold font-mono text-[#38BDF8] uppercase tracking-wider">
           ACADEMIC QUICK RECORDERS
         </h3>

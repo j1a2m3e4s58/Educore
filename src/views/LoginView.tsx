@@ -357,7 +357,7 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
   const activeSelectedSchool = schools.find(s => s.id === selectedSchoolId);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-4 font-sans select-none relative overflow-hidden">
+    <div className="login-page min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-4 font-sans select-none relative overflow-hidden">
       
       {/* Dynamic Background branding grid lines simulation */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#E2E8F0_1px,transparent_1px),linear-gradient(to_bottom,#E2E8F0_1px,transparent_1px)] bg-[size:32px_32px] opacity-[0.4] pointer-events-none" />
@@ -367,10 +367,10 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none select-none" />
 
       {/* CONTAINER CARD CONTENT */}
-      <div className="w-full max-w-md bg-white border border-banking-border rounded shadow-xl relative z-20 flex flex-col overflow-hidden">
+      <div className="login-card w-full max-w-md bg-white border border-banking-border rounded shadow-xl relative z-20 flex flex-col overflow-hidden">
         
         {/* UPPER ENTERPRISE BANNER */}
-        <div className="bg-[#0A1E33] px-6 py-6 border-b border-slate-700 flex flex-col items-center text-center">
+        <div className="login-banner bg-[#0A1E33] px-6 py-6 border-b border-slate-700 flex flex-col items-center text-center">
           <div className="p-2.5 bg-[#1A56DB] text-white rounded-md mb-3 flex items-center justify-center shadow-md">
             <Database className="w-7 h-7 text-slate-100" />
           </div>
@@ -394,7 +394,7 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
         )}
 
         {/* CONTEXT CARDS AND FORMS */}
-        <div className="p-6">
+        <div className="login-form-panel p-6">
           
           {/* SUCCESS AND ERROR STATUS ALERTS MONITOR */}
           {errorMessage && (
@@ -413,7 +413,7 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
 
           {loginMode.isAdminLogin && activeTab === 'super' ? (
             /* ================= SUPER ADMIN FORM ================= */
-            <form onSubmit={handleSuperSubmit} className="space-y-4">
+            <form onSubmit={handleSuperSubmit} className="login-form space-y-4">
               <p className="text-[11px] text-slate-400 bg-slate-50 p-2.5 rounded border border-slate-200 leading-normal">
                 Credentials below are seeded. Click the login trigger to enter the Global multi-tenant ledger deployer.
               </p>
@@ -472,7 +472,7 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
 
             </form>
           ) : activeTab === 'forgot' ? (
-            <form onSubmit={handleForgotPassword} className="space-y-4">
+            <form onSubmit={handleForgotPassword} className="login-form space-y-4">
               <div className="rounded border border-amber-100 bg-amber-50 p-3 text-[11px] font-semibold leading-relaxed text-amber-950">
                 Request a password reset. The school manager must approve it before a new temporary password is sent.
               </div>
@@ -503,7 +503,7 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
               </button>
             </form>
           ) : activeTab === 'request' ? (
-            <form onSubmit={handleCreateAccount} className="space-y-4">
+            <form onSubmit={handleCreateAccount} className="login-form space-y-4">
               <div className="rounded border border-blue-100 bg-blue-50 p-3 text-[11px] font-semibold leading-relaxed text-blue-950">
                 Request a Teacher, Parent, or Student account. The school manager must approve it before login will work.
               </div>
@@ -560,7 +560,7 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
             </form>
           ) : (
             /* ================= SCHOOL INSTANCE FORM ================= */
-            <form onSubmit={handleSchoolSubmit} className="space-y-4">
+            <form onSubmit={handleSchoolSubmit} className="login-form space-y-4">
               
               {/* SELECT OR DROP DOWN DEPLOYED SCHOOLS */}
               {!loginMode.schoolParam && (

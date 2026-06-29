@@ -258,7 +258,7 @@ function PortalAssistBar({
   if (!simpleMode) return null;
 
   return (
-    <div className="mb-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
+    <div className="academic-scope-bar mb-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
       <div className="flex items-center gap-2">
         <div className="relative flex-1 min-w-0">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -420,7 +420,7 @@ function AcademicTimeScopeBar({ tenantId, role }: { tenantId: string; role: User
             Showing {scope.mode} records for {scope.term}, {scope.academicYear}. Old academic years stay searchable.
           </p>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="academic-scope-controls flex flex-wrap gap-2">
           <select value={scope.mode} onChange={e => updateScope({ mode: e.target.value as AcademicTimeScope['mode'] })} className="min-h-10 rounded-xl border border-slate-200 bg-slate-50 px-3 text-xs font-black text-slate-700">
             <option value="day">Day</option>
             <option value="month">Month</option>
@@ -1429,7 +1429,7 @@ function FirstTimeSetupWizard({ role, setActiveTab }: { role: User['role']; setA
   const progress = Math.round((done.length / steps.length) * 100);
 
   return (
-    <section className="mb-3 rounded-2xl border border-blue-100 bg-white p-3 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
+    <section className="role-onboarding-card mb-3 rounded-2xl border border-blue-100 bg-white p-3 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">Smart role onboarding</p>
@@ -3229,7 +3229,8 @@ export default function App() {
   // Auto-launch guided tour on first-time visit
   useEffect(() => {
     const isCompleted = localStorage.getItem("educore_tour_completed");
-    if (!isCompleted) {
+    const isPhone = window.matchMedia?.('(max-width: 767px)').matches;
+    if (!isCompleted && !isPhone) {
       const t = setTimeout(() => {
         setIsTourOpen(true);
       }, 800);
@@ -3545,7 +3546,7 @@ export default function App() {
       {toast && (
         <div 
           onClick={() => setToast(null)}
-          className={`fixed bottom-5 left-1/2 right-auto z-50 w-[calc(100vw-2rem)] max-w-[330px] -translate-x-1/2 p-3.5 sm:bottom-6 sm:left-auto sm:right-6 sm:w-auto sm:max-w-sm sm:translate-x-0 sm:p-4 rounded-xl sm:rounded-md border flex items-center gap-3 shadow-2xl cursor-pointer animate-in slide-in-from-bottom-5 duration-200 ${
+          className={`fixed bottom-24 left-1/2 right-auto z-50 w-[calc(100vw-2rem)] max-w-[330px] -translate-x-1/2 p-3.5 sm:bottom-6 sm:left-auto sm:right-6 sm:w-auto sm:max-w-sm sm:translate-x-0 sm:p-4 rounded-xl sm:rounded-md border flex items-center gap-3 shadow-2xl cursor-pointer animate-in slide-in-from-bottom-5 duration-200 ${
             toast.type === 'success' 
               ? 'bg-white border-emerald-250 text-slate-900 select-all' 
               : toast.type === 'error'

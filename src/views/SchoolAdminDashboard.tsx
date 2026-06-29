@@ -61,7 +61,7 @@ export default function SchoolAdminDashboard({
   const localStudents = users.filter(u => u.tenantId === currentTenant?.id && u.role === 'Student');
 
   return (
-    <div className="space-y-4 sm:space-y-6 font-sans select-none animate-in fade-in duration-200 max-w-full">
+    <div className="school-dashboard-page space-y-4 sm:space-y-6 font-sans select-none animate-in fade-in duration-200 max-w-full">
       
       {/* CONTEXT SCHOOL OVERVIEW HERO */}
       <div className="bg-white rounded-2xl sm:rounded-lg border border-banking-border p-4 sm:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 relative overflow-hidden shadow-sm">
@@ -98,7 +98,7 @@ export default function SchoolAdminDashboard({
       </div>
 
       {simpleMode && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="manager-action-grid grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: 'Students', hint: 'View student records', icon: Users },
             { label: 'Teachers', hint: 'Manage teachers', icon: Cpu },
@@ -125,7 +125,7 @@ export default function SchoolAdminDashboard({
       )}
 
       {/* CORE SCHOOL KPI METRICS GRID */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+      <div className="manager-kpi-grid grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
         <StatCard
           title={simpleMode ? 'Students' : 'Total Students Enrolled'}
           value={stats.totalStudents}
