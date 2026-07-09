@@ -315,7 +315,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
               <p className="text-xs font-semibold text-slate-600">{item.detail}</p>
             </div>
           )) : (
-            <p className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-3 text-xs font-bold text-slate-500">No student records found for this selected period.</p>
+            <p className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-3 text-xs font-bold text-slate-500">No school work is showing for this period. Try another date, term, or semester.</p>
           )}
         </div>
       </div>
@@ -418,7 +418,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
                   { label: 'Open materials', onClick: () => setActivePane('library'), scrollTo: 'materials-section' },
                 ]}
                 isEmpty={announcements.length === 0 && publishedClassTimetable.length === 0}
-                emptyText="No new notice or timetable is showing yet. Check assignments or materials for class work."
+                emptyText="No new notice or timetable is showing yet. Check assignments or learning materials for class work."
               />
               
               {/* BOARD ANNOUNCEMENTS */}
@@ -560,7 +560,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
                   { label: 'AI revision', onClick: () => setActivePane('revision-companion'), scrollTo: 'materials-section' },
                 ]}
                 isEmpty={scopedMaterials.length === 0}
-                emptyText="No material is available yet. Your teacher or school will upload learning files here."
+                emptyText="No material is available yet. Your teacher or school will upload notes, slides, or files here."
               />
               <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider border-b border-slate-100 pb-2">
                 Curriculum Core Learning Slides & Outlines
