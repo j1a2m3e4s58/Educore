@@ -2159,7 +2159,7 @@ function UnreadStatusPanel({ role, tenantId, setActiveTab }: { role: User['role'
           const isRead = readIds.includes(item.id);
           return (
             <button
-              key={`${item.label}-${item.id}`}
+              key={`${item.title}-${item.id}`}
               type="button"
               onClick={() => {
                 markRead(item.id);
@@ -3449,7 +3449,7 @@ export default function App() {
     const freshSchools = schools.map(s => {
       if (s.id === schoolId) {
         const isCurrentlyActive = s.status === 'Active';
-        const targetStatus = isCurrentlyActive ? 'Suspended' : 'Active';
+        const targetStatus: School['status'] = isCurrentlyActive ? 'Suspended' : 'Active';
         
         appendActivityLog({
           tenantId: schoolId,

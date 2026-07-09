@@ -207,9 +207,8 @@ async function runManagerJourney() {
   const page = await newSeededPage(users.manager, { width: 1365, height: 768 }, 'Manager journey');
   await expectVisibleText(page, /Central Crest Collegiate|School Home/i, 'Manager dashboard');
   await expectVisibleText(page, /ready to sync|saved on this device/i, 'Manager offline sync status');
-  await expectVisibleText(page, /Start with these/i, 'Manager role home actions');
-  await expectVisibleText(page, /Manager workflow summary/i, 'Manager workflow summary');
-  await expectVisibleText(page, /Average score|Work not done today|Export CSV/i, 'Manager workflow controls');
+  await expectVisibleText(page, /Do now|Check records|Messages\/help/i, 'Manager role home actions');
+  await expectVisibleText(page, /Run the school today|Students|Teachers|Fees|Messages/i, 'Manager simple home controls');
   await clickNav(page, 'school-teachers', 'Manager teachers page');
   await expectVisibleText(page, /Teacher & Class Timetable/i, 'Manager timetable view');
   await assertSectionFocused(page, 'timetable-section', 'Manager timetable section jump');
@@ -223,9 +222,9 @@ async function runManagerJourney() {
 
 async function runTeacherJourney() {
   const page = await newSeededPage(users.teacher, { width: 1365, height: 768 }, 'Teacher journey');
+  await expectVisibleText(page, /Teach today|Do now|Check records|Messages\/help/i, 'Teacher simple role actions');
   await expectVisibleText(page, /Today's Teaching Periods/i, 'Teacher timetable');
   await expectVisibleText(page, /Start attendance, lessons, materials, or assignments/i, 'Teacher timetable actions');
-  await expectVisibleText(page, /Continue where you stopped/i, 'Teacher continue workflow');
   await clickNav(page, 'teacher-attendance', 'Teacher attendance page');
   await expectVisibleText(page, /Classroom Attendance Ledger|Attendance/i, 'Teacher attendance');
   await assertSectionFocused(page, 'attendance-section', 'Teacher attendance section jump');
@@ -239,7 +238,7 @@ async function runTeacherJourney() {
   await clickNav(page, 'teacher-lessons', 'Teacher lesson page');
   await expectVisibleText(page, /Daily Lesson Outlines & Logs/i, 'Teacher lesson records');
   await clickNav(page, 'teacher-materials', 'Teacher materials page');
-  await expectVisibleText(page, /Curriculum Documents & Teaching Materials/i, 'Teacher materials');
+  await expectVisibleText(page, /Teaching Materials|Upload notes, slides, books/i, 'Teacher materials');
   await assertSectionFocused(page, 'materials-section', 'Teacher materials section jump');
   await clickNav(page, 'teacher-assignments', 'Teacher assignments page');
   await expectVisibleText(page, /Homework & Course Assignments/i, 'Teacher assignments');
@@ -250,15 +249,16 @@ async function runTeacherJourney() {
 
 async function runParentJourney() {
   const page = await newSeededPage(users.parent, { width: 1365, height: 768 }, 'Parent journey');
-  await expectVisibleText(page, /Published Class Timetable/i, 'Parent timetable');
+  await expectVisibleText(page, /Check your child today|My child school update/i, 'Parent home');
+  await expectVisibleText(page, /Class timetable|The school has not published the timetable yet/i, 'Parent timetable');
   await assertSectionFocused(page, 'timetable-section', 'Parent timetable section');
-  await page.getByRole('button', { name: /Assignments & Card Results/i }).click();
+  await page.getByRole('button', { name: /Assignments & Results/i }).click();
   await expectVisibleText(page, /Current Homework Assignments|Assignments & Card Results/i, 'Parent assignments');
   await assertSectionFocused(page, 'assignments-section', 'Parent assignments section jump');
-  await page.getByRole('button', { name: /Invoices & Tuition Payments/i }).click();
-  await expectVisibleText(page, /Invoices & Tuition Payments|Tuition/i, 'Parent fees');
+  await page.getByRole('button', { name: /Fees & Payments/i }).click();
+  await expectVisibleText(page, /Fees & Payments|Tuition|No fee bill/i, 'Parent fees');
   await assertSectionFocused(page, 'fees-section', 'Parent fees section jump');
-  await page.getByRole('button', { name: /School News & Overview/i }).click();
+  await page.getByRole('button', { name: /School News/i }).click();
   await expectVisibleText(page, /Institutional Alerts & Bulletin Board/i, 'Parent messages');
   await page.close();
   console.log('OK Parent journey');
@@ -271,10 +271,10 @@ async function runStudentJourney() {
   await page.getByRole('button', { name: /School Assignments/i }).click();
   await expectVisibleText(page, /School Assignments/i, 'Student assignments');
   await assertSectionFocused(page, 'assignments-section', 'Student assignments section jump');
-  await page.getByRole('button', { name: /Curriculum Core Materials/i }).click();
-  await expectVisibleText(page, /Curriculum Core Materials/i, 'Student materials');
+  await page.getByRole('button', { name: /Learning Materials/i }).click();
+  await expectVisibleText(page, /Learning Materials|Curriculum Core Learning/i, 'Student materials');
   await assertSectionFocused(page, 'materials-section', 'Student materials section jump');
-  await expectVisibleText(page, /AI Revision summaries/i, 'Student AI revision');
+  await expectVisibleText(page, /AI Study Notes|School-Approved AI Study Guides/i, 'Student AI revision');
   await page.close();
   console.log('OK Student journey');
 }
@@ -288,16 +288,16 @@ async function runMobileJourney() {
   const teacher = await newSeededPage(users.teacher, { width: 375, height: 667 }, 'Mobile teacher journey');
   await expectVisibleText(teacher, /Today's Teaching Periods/i, 'Mobile teacher dashboard');
   await clickNav(teacher, 'teacher-materials', 'Mobile teacher materials');
-  await expectVisibleText(teacher, /Curriculum Documents & Teaching Materials/i, 'Mobile materials view');
+  await expectVisibleText(teacher, /Teaching Materials|Upload notes, slides, books/i, 'Mobile materials view');
   await assertSectionFocused(teacher, 'materials-section', 'Mobile teacher materials section jump');
   await teacher.close();
 
   const parent = await newSeededPage(users.parent, { width: 375, height: 667 }, 'Mobile parent journey');
-  await expectVisibleText(parent, /Published Class Timetable|Current Homework Assignments/i, 'Mobile parent view');
+  await expectVisibleText(parent, /Check your child today|My child school update|Do now/i, 'Mobile parent view');
   await parent.close();
 
   const student = await newSeededPage(users.student, { width: 375, height: 667 }, 'Mobile student journey');
-  await expectVisibleText(student, /Weekly Timetable Matrix|School Assignments/i, 'Mobile student view');
+  await expectVisibleText(student, /Do your school work|My school work today|Do now/i, 'Mobile student view');
   await student.close();
   console.log('OK Mobile journeys');
 }

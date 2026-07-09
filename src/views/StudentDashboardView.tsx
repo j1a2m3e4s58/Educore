@@ -30,6 +30,18 @@ interface StudentDashboardViewProps {
   currentTenant: School | null;
 }
 
+interface StudentAssignmentItem {
+  id: string;
+  title: string;
+  subject: string;
+  dueDate: string;
+  status: string;
+  score: string;
+  teacher: string;
+  instructions?: string;
+  feedback?: string;
+}
+
 export default function StudentDashboardView({ user, currentTenant }: StudentDashboardViewProps) {
   const tenantId = currentTenant?.id || 'school_central_crest';
   const studentEmail = user?.email || 'j.vance@centralcrest.edu';
@@ -55,7 +67,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
     { day: 'Fri', sub: 'Physical Education', time: '09:00 - 10:30', room: 'Stadium Field', teacher: 'Coach Vance' }
   ];
 
-  const INITIAL_STUDENT_ASSIGNMENTS = [
+  const INITIAL_STUDENT_ASSIGNMENTS: StudentAssignmentItem[] = [
     { id: 'asgn_101', title: 'Quadratic Equations Worksheet', subject: 'Mathematics', dueDate: '2026-06-19', status: 'Pending', score: 'N/A', teacher: 'Mr. Marcus Brody', instructions: 'Attempt sections A through D on the printed chapter outline. Document all steps for linear algebraic reductions.' },
     { id: 'asgn_102', title: 'Kinematics Lab Outline Draft', subject: 'Physics', dueDate: '2026-06-15', status: 'Graded', score: '94/100', teacher: 'Mr. Marcus Brody', feedback: 'Pristine plotting of vectors.' },
     { id: 'asgn_103', title: 'Shakespearian Tragedy Critique', subject: 'English Lit', dueDate: '2026-06-10', status: 'Graded', score: '88/100', teacher: 'Mrs. Janet Finch', feedback: 'Very strong thematic outlines.' }

@@ -97,13 +97,13 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
         fullName: 'Julian Vance',
         studentId: 'STU-001',
         classId: 'Grade 10 - Blue',
-        gender: 'Male',
+        gender: 'Male' as const,
         parentName: 'Robert Vance',
         parentPhone: '+1 (617) 555-9011',
         parentEmail: 'r.vance@gmail.com',
         dateOfBirth: '2010-04-12',
         admissionDate: '2025-09-12',
-        status: 'Active',
+        status: 'Active' as const,
         createdAt: '2025-09-12T08:00:00Z'
       };
       resolvedChildren = [fallbackStudent];

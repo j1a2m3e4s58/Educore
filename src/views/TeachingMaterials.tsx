@@ -361,8 +361,8 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
   const myMaterialsCount = visibleMaterials.filter(isOwnMaterial).length;
   const sharedMaterialsCount = visibleMaterials.filter(isSharedMaterial).length;
   const assignedMaterialsCount = visibleMaterials.filter(isAssignedMaterial).length;
-  const uploadYears = Array.from(new Set(visibleMaterials.map(mat => (mat.uploadDate || '').slice(0, 4)).filter(Boolean))).sort().reverse();
-  const fileTypes = Array.from(new Set(visibleMaterials.map(mat => mat.fileType).filter(Boolean))).sort();
+  const uploadYears = Array.from(new Set(visibleMaterials.map(mat => (mat.uploadDate || '').slice(0, 4)).filter(Boolean) as string[])).sort().reverse();
+  const fileTypes = Array.from(new Set(visibleMaterials.map(mat => mat.fileType).filter(Boolean) as string[])).sort();
 
   const filteredMaterials = visibleMaterials.filter(mat => {
     const matchesSearch = mat.title.toLowerCase().includes(searchQuery.toLowerCase()) || 

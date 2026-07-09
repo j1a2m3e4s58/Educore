@@ -134,6 +134,7 @@ export interface Term {
   tenantId: string;
   academicYearId: string; // refers to AcademicYear.id
   name: string; // e.g. "First Term", "Second Term", "Semester 1"
+  periodType?: AcademicPeriodType;
   startDate: string;
   endDate: string;
   status: 'Active' | 'Inactive';
@@ -256,6 +257,10 @@ export interface TeachingMaterial {
   fileSize?: string;
   fileName?: string;
   downloadUrl?: string;
+  teacherId?: string;
+  uploadedBy?: string;
+  classId?: string;
+  subjectId?: string;
   gradeClassFilter?: string; // Class ID context
   subjectFilter?: string; // Subject ID context
   uploadedByTeacherId?: string;
