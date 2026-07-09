@@ -177,8 +177,8 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
     const errors: Record<string, string> = {};
     if (!uploadValues.title.trim()) errors.title = 'Material title is required.';
     if (!uploadValues.description.trim()) errors.description = 'Brief details are required.';
-    if (!uploadValues.gradeClassFilter) errors.gradeClassFilter = 'Grade scope is required.';
-    if (!uploadValues.subjectFilter) errors.subjectFilter = 'Subject scope is required.';
+    if (!uploadValues.gradeClassFilter) errors.gradeClassFilter = 'Choose the class.';
+    if (!uploadValues.subjectFilter) errors.subjectFilter = 'Choose the subject.';
 
     if (Object.keys(errors).length > 0) {
       setUploadErrors(errors);
@@ -216,7 +216,7 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
       teacherId: shareScope === 'SchoolShared' ? user.id : teacherProfile.id,
       teacherName: uploaderName,
       action: 'Uploaded Material',
-      details: `Uploaded resource: "${uploadValues.title}" (${uploadValues.category}) into the school resource vault. Size: ${uploadValues.fileSize}`
+      details: `Uploaded material: "${uploadValues.title}" (${uploadValues.category}). Size: ${uploadValues.fileSize}`
     });
 
     setMaterials(updatedM);
@@ -311,7 +311,7 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
   };
 
   const handleDeleteMaterial = (id: string, title: string) => {
-    const confirmation = window.confirm(`Are you sure you want to remove resource "${title}" from the digital curriculum vault?`);
+    const confirmation = window.confirm(`Are you sure you want to remove "${title}" from teaching materials?`);
     if (!confirmation) return;
 
     const current = getTeachingMaterialsInStorage(tenantId);
@@ -349,13 +349,13 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
       <div className="bg-white rounded border border-[#E2E8F0] p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
         <div>
           <span className="text-[10px] bg-indigo-50 text-indigo-800 px-2.5 py-0.5 rounded font-mono font-bold uppercase tracking-wider">
-            DIGITAL SYLLABUS VAULT
+            TEACHING MATERIALS
           </span>
           <h1 className="text-lg font-bold text-slate-900 mt-2 font-display leading-tight">
-            Curriculum Documents & Teaching Materials
+            Teaching Materials
           </h1>
           <p className="text-xs text-slate-500 mt-1 max-w-2xl leading-relaxed">
-            Upload materials by class and subject. Teachers quickly see their own files, school shared files, and resources for the classes they teach.
+            Upload notes, slides, books, videos, and worksheets by class and subject.
           </p>
         </div>
 
@@ -408,7 +408,7 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
           </button>
         </div>
         <p className="px-1 pt-1 text-xs font-semibold leading-relaxed text-slate-500">
-          Teachers upload their own files. Principals can upload materials for all teachers or for selected classes and subjects.
+          Teachers add files for the classes they teach. Principals can also share files for all teachers or selected classes.
         </p>
       </div>
       <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-4 shadow-sm">
@@ -674,13 +674,13 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
                       {mat.description}
                     </p>
                     <p className="mt-2 rounded bg-slate-50 px-2 py-1 text-[9px] font-black uppercase tracking-wide text-slate-500">
-                      Library path: {getClassLabel(mat.gradeClassFilter)} / {getSubjectLabel(mat.subjectFilter)} / {mat.uploadedByTeacherName || 'School staff'} / {(mat.uploadDate || '').slice(0, 4) || 'Year'} / {mat.fileType?.toUpperCase()}
+                      File group: {getClassLabel(mat.gradeClassFilter)} / {getSubjectLabel(mat.subjectFilter)} / {mat.uploadedByTeacherName || 'School staff'} / {(mat.uploadDate || '').slice(0, 4) || 'Year'} / {mat.fileType?.toUpperCase()}
                     </p>
                   </div>
 
                   {/* Badges details meta */}
                   <div className="flex flex-wrap gap-1 items-center pt-1.5 border-t border-slate-100">
-                    <span className="text-[8px] uppercase font-mono font-bold text-slate-400 mr-1">Roster scope:</span>
+                    <span className="text-[8px] uppercase font-mono font-bold text-slate-400 mr-1">Class:</span>
                     <span className="bg-slate-100 text-[8.5px] px-2 py-0.2 rounded font-mono font-bold text-slate-600">
                       {getClassLabel(mat.gradeClassFilter)}
                     </span>

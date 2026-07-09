@@ -205,12 +205,12 @@ export default function TeacherDashboard({
               <div className="flex-1 space-y-2">
                 <div className="flex items-center gap-2">
                   <span className="text-[9px] bg-rose-600 text-white px-2 py-0.5 rounded font-mono font-bold uppercase tracking-wider">
-                    QUERY FOR "{q.recordTitle}"
+                    CHECK "{q.recordTitle}"
                   </span>
                   <span className="text-slate-400 font-mono text-[9px]">{new Date(q.timestamp).toLocaleDateString()}</span>
                 </div>
                 <p className="text-rose-950 font-semibold text-xs leading-normal">
-                  Academic Principal <span className="font-extrabold text-slate-900">{q.headUserName}</span> flagged your record:
+                  School head <span className="font-extrabold text-slate-900">{q.headUserName}</span> asked you to check this record:
                   <span className="block mt-1 font-mono italic text-rose-800 bg-white/40 p-2 rounded border border-rose-100">"{q.queryText}"</span>
                 </p>
               </div>
@@ -218,7 +218,7 @@ export default function TeacherDashboard({
               <div className="flex flex-col sm:flex-row gap-2 shrink-0 w-full sm:w-auto items-end sm:items-center">
                 <input
                   type="text"
-                  placeholder="Type corrective notes..."
+                  placeholder="Type your reply..."
                   value={resolverTexts[q.id] || ''}
                   onChange={(e) => setResolverTexts(prev => ({ ...prev, [q.id]: e.target.value }))}
                   className="px-2.5 py-1.5 bg-white border border-rose-200 rounded text-xs focus:outline-none focus:border-rose-400 w-full sm:w-48"
@@ -227,7 +227,7 @@ export default function TeacherDashboard({
                   onClick={() => handleResolveQuery(q.id)}
                   className="px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded cursor-pointer shrink-0 transition-colors"
                 >
-                  Confirm Correction
+                  Send Reply
                 </button>
               </div>
             </div>
@@ -239,25 +239,25 @@ export default function TeacherDashboard({
       <div className="bg-white rounded border border-[#E2E8F0] p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
         <div>
           <span className="text-[10px] bg-[#EBF5FF] text-[#1E40AF] px-2 py-0.5 rounded-sm font-mono font-bold uppercase tracking-wider">
-            TEACHER CONSOLE GATEWAY
+            TEACHER HOME
           </span>
           <h1 className="text-xl font-bold font-display text-slate-900 mt-2 tracking-tight">
-            Welcome, {teacherProfile.fullName}
+            My class work today
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Faculty Representative of <span className="font-semibold text-slate-700">{teacherProfile.departmentName || 'Academic Department'}</span> | {currentTenant.name}
+            Welcome, <span className="font-semibold text-slate-700">{teacherProfile.fullName}</span>. Choose what you need to do for today classes.
           </p>
         </div>
         
         <div className="flex items-center gap-3">
           <div className="text-right text-xs">
-            <p className="text-slate-400">Current Academic Cycle</p>
+            <p className="text-slate-400">School year</p>
             <p className="font-semibold text-slate-800">2025/2026 Academic Year</p>
           </div>
           <span className="w-px h-8 bg-slate-200"></span>
           <div className="flex items-center gap-1.5 text-xs text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-100 font-mono">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            ACTIVE SESSION
+            READY
           </div>
         </div>
       </div>
@@ -470,10 +470,10 @@ export default function TeacherDashboard({
       {/* QUICK ACTIONS PANEL - PROMINENT BLUE ROW */}
       <div className="teacher-quick-panel bg-gradient-to-r from-[#0F2942] to-[#0A1A2D] text-white p-6 rounded border border-slate-800 shadow-md">
         <h3 className="text-xs font-semibold font-mono text-[#38BDF8] uppercase tracking-wider">
-          ACADEMIC QUICK RECORDERS
+          QUICK CLASS WORK
         </h3>
         <p className="text-xs text-slate-300 mt-1">
-          Perform administrative filings on the active roster. Logs are instantly processed, timestamped, and rendered for reviewer audits.
+          Use these big buttons for the work teachers do every day.
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
@@ -485,10 +485,10 @@ export default function TeacherDashboard({
           >
             <div>
               <h4 className="text-xs font-bold font-sans text-white group-hover:text-blue-300">
-                Mark Student Attendance
+                Mark Attendance
               </h4>
               <p className="text-[10px] text-slate-400 mt-1">
-                Filing daily presence grids by student roster
+                Mark present, absent, late, or excused
               </p>
             </div>
             <span className="p-2 bg-[#1A56DB] rounded-md text-white group-hover:scale-105 transition-transform shrink-0">
@@ -503,10 +503,10 @@ export default function TeacherDashboard({
           >
             <div>
               <h4 className="text-xs font-bold font-sans text-white group-hover:text-amber-300">
-                Create New Assignment
+                Give Assignment
               </h4>
               <p className="text-[10px] text-slate-400 mt-1">
-                Distribute topics, instructions, and marks
+                Add work students and parents can see
               </p>
             </div>
             <span className="p-2 bg-amber-500 rounded-md text-white group-hover:scale-105 transition-transform shrink-0">
@@ -521,10 +521,10 @@ export default function TeacherDashboard({
           >
             <div>
               <h4 className="text-xs font-bold font-sans text-white group-hover:text-emerald-300">
-                Record Lesson Taught
+                Record Lesson
               </h4>
               <p className="text-[10px] text-slate-400 mt-1">
-                Log objectives, materials used and home assignment
+                Save topic, pages reached, and homework
               </p>
             </div>
             <span className="p-2 bg-emerald-600 rounded-md text-white group-hover:scale-105 transition-transform shrink-0">
@@ -542,14 +542,14 @@ export default function TeacherDashboard({
         <div className="bg-white rounded border border-[#E2E8F0] shadow-xs flex flex-col">
           <div className="p-4 border-b border-[#F1F5F9]" style={{ contentVisibility: 'auto' }}>
             <h3 className="text-xs font-bold font-mono tracking-wider text-slate-500 uppercase">
-              ASSIGNED DEPARTMENTS & SUBJECTS
+              MY CLASSES AND SUBJECTS
             </h3>
           </div>
           <div className="p-5 flex-1 space-y-4">
             
             {/* Class badges list */}
             <div>
-              <h4 className="text-xs font-semibold text-slate-600">Assigned Classes ({teacherProfile.assignedClasses?.length || 0})</h4>
+              <h4 className="text-xs font-semibold text-slate-600">My Classes ({teacherProfile.assignedClasses?.length || 0})</h4>
               <div className="flex flex-wrap gap-1.5 mt-2">
                 {teacherProfile.assignedClasses?.map((classId: string) => {
                   const match = classesList.find(c => c.id === classId);
@@ -560,14 +560,14 @@ export default function TeacherDashboard({
                   );
                 })}
                 {(!teacherProfile.assignedClasses || teacherProfile.assignedClasses.length === 0) && (
-                  <span className="text-xs text-slate-400">No classes assigned. Use School Admin setup.</span>
+                  <span className="text-xs text-slate-400">No classes assigned yet. Ask the school manager to add your classes.</span>
                 )}
               </div>
             </div>
 
             {/* Subject badges list */}
             <div>
-              <h4 className="text-xs font-semibold text-slate-600">Assigned Curriculum Subjects ({teacherProfile.subjectsTaught?.length || 0})</h4>
+              <h4 className="text-xs font-semibold text-slate-600">My Subjects ({teacherProfile.subjectsTaught?.length || 0})</h4>
               <div className="space-y-2 mt-2.5">
                 {teacherProfile.subjectsTaught?.map((subId: string) => {
                   const match = subjectsList.find(s => s.id === subId);
@@ -584,7 +584,7 @@ export default function TeacherDashboard({
                   );
                 })}
                 {(!teacherProfile.subjectsTaught || teacherProfile.subjectsTaught.length === 0) && (
-                  <span className="text-xs text-slate-400">No subjects assigned. Contact core registrar.</span>
+                  <span className="text-xs text-slate-400">No subjects assigned yet. Ask the school manager to add your subjects.</span>
                 )}
               </div>
             </div>
@@ -592,9 +592,9 @@ export default function TeacherDashboard({
             <div className="bg-[#FFF8E6] border border-amber-100 p-3.5 rounded flex gap-3 text-[10px] text-amber-800 mt-2">
               <AlertCircle className="w-4 h-4 shrink-0 text-amber-600" />
               <div>
-                <p className="font-bold">CURRICULUM SECURITY RESTRICTION</p>
+                <p className="font-bold">Privacy note</p>
                 <p className="text-slate-500 mt-0.5 leading-normal">
-                  In compliance with EduCore AI Multi-Tenant parameters, you are restricted from view-logging other teachers' assigned subjects or grades. Row-level filters are enforced.
+                  You can only see your own classes, subjects, and records. Other teachers work stays private.
                 </p>
               </div>
             </div>
@@ -606,7 +606,7 @@ export default function TeacherDashboard({
         <div className="bg-white rounded border border-[#E2E8F0] shadow-xs flex flex-col">
           <div className="p-4 border-b border-[#F1F5F9]">
             <h3 className="text-xs font-bold font-mono tracking-wider text-slate-500 uppercase">
-              TODAY'S TEACHING SCHEDULE
+              TODAY CLASSES
             </h3>
           </div>
           <div className="p-5 flex-1 flex flex-col justify-between">
@@ -614,7 +614,7 @@ export default function TeacherDashboard({
               
               <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 bg-slate-50 px-3 py-2 rounded font-mono">
                 <Calendar className="w-4 h-4 text-slate-400" />
-                <span>Roster Cycles for {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</span>
+                <span>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</span>
               </div>
 
               {/* Loop classes list and make columns */}
@@ -646,7 +646,7 @@ export default function TeacherDashboard({
                         }}
                         className="text-[10px] font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 flex items-center gap-1 px-2.5 py-1 rounded tracking-wide font-sans transition-colors cursor-pointer shrink-0"
                       >
-                        Roll Call <ArrowRight className="w-3 h-3" />
+                        Attendance <ArrowRight className="w-3 h-3" />
                       </button>
                     </div>
                   );
@@ -664,7 +664,7 @@ export default function TeacherDashboard({
 
             <div className="text-[10px] text-slate-400 font-mono flex items-center gap-1 mt-4">
               <span className="h-2 w-2 rounded-full bg-slate-300"></span>
-              Schedules synchronized from master registrar timetable
+              Timetable comes from the school schedule
             </div>
 
           </div>
@@ -674,7 +674,7 @@ export default function TeacherDashboard({
         <div className="bg-white rounded border border-[#E2E8F0] shadow-xs flex flex-col">
           <div className="p-4 border-b border-[#F1F5F9]">
             <h3 className="text-xs font-bold font-mono tracking-wider text-slate-500 uppercase">
-              LOCAL FILING TIMELINE (AUDIT)
+              MY RECENT WORK
             </h3>
           </div>
           <div className="p-5 flex-1 flex flex-col justify-between">
@@ -715,7 +715,7 @@ export default function TeacherDashboard({
 
                 {localActivityLogs.length === 0 && (
                   <div className="p-6 text-center text-xs text-slate-400">
-                    No filing logs recorded under this teacher node.
+                    No recent work recorded yet.
                   </div>
                 )}
 
@@ -727,7 +727,7 @@ export default function TeacherDashboard({
               onClick={() => setActiveTab('teacher-log')}
               className="text-[10px] font-bold text-slate-500 hover:text-slate-800 flex items-center justify-center gap-1 mt-4 pt-3.5 border-t border-slate-100 font-sans cursor-pointer w-full"
             >
-              Examine Complete Audit Log <ArrowRight className="w-3 h-3" />
+              Open full activity log <ArrowRight className="w-3 h-3" />
             </button>
 
           </div>

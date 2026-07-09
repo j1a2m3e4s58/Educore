@@ -179,7 +179,7 @@ export default function AttendanceManagement({ user, currentTenant }: Attendance
       teacherId: teacherProfile.id,
       teacherName: teacherProfile.fullName,
       action: 'Marked Attendance',
-      details: `Injected daily roll call sheet for Class: ${classNameVal} on date: ${selectedDate}. Attendance scope: ${presentsCount} Present, ${absentsCount} Absent, ${latesCount} Late, ${excusesCount} Excused.`,
+      details: `Saved attendance for ${classNameVal} on ${selectedDate}. ${presentsCount} Present, ${absentsCount} Absent, ${latesCount} Late, ${excusesCount} Excused.`,
       classId: selectedClass,
       className: classNameVal,
       subjectId: selectedSubject || undefined,
@@ -188,7 +188,7 @@ export default function AttendanceManagement({ user, currentTenant }: Attendance
 
     setAttendanceLogs([newRecord, ...attendanceLogs]);
     saveWorkflowProgress('teacher-attendance', { doneSteps: [0, 1, 2], completed: true }, 'attendance record saved');
-    setSuccessMsg(`System Ledger Synced: Successfully filed attendance checklist for ${classNameVal} (${presentsCount} Present, ${absentsCount} Absent).`);
+    setSuccessMsg(`Attendance saved for ${classNameVal}: ${presentsCount} present, ${absentsCount} absent.`);
     
     // Close submit forms
     setIsSubmitMode(false);
@@ -204,13 +204,13 @@ export default function AttendanceManagement({ user, currentTenant }: Attendance
       <div className="bg-white rounded border border-[#E2E8F0] p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
         <div>
           <span className="text-[10px] bg-emerald-50 text-emerald-800 px-2.5 py-0.5 rounded font-mono font-bold uppercase tracking-wider">
-            ACADEMIC ATTENDANCE HUB
+            ATTENDANCE
           </span>
           <h1 className="text-lg font-bold text-slate-900 mt-2 font-display leading-tight">
-            Classroom Attendance Ledger
+            Mark Class Attendance
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Mark daily roll calls, flag chronics or absentees, and provide notes for official oversight records.
+            Choose a class, mark who is present or absent, and save today attendance.
           </p>
         </div>
 
@@ -268,7 +268,7 @@ export default function AttendanceManagement({ user, currentTenant }: Attendance
         <div className="p-4 bg-[#FFF5F5] border border-rose-250 text-rose-900 text-xs rounded flex items-center gap-3 animate-in fade-in duration-150">
           <AlertTriangle className="w-5 h-5 text-rose-500 shrink-0" />
           <div className="flex-1">
-            <p className="font-bold font-mono">VALIDATION_CONFLICT</p>
+            <p className="font-bold font-mono">Please check this</p>
             <p className="text-slate-600 mt-0.5">{validationError}</p>
           </div>
         </div>
@@ -338,7 +338,7 @@ export default function AttendanceManagement({ user, currentTenant }: Attendance
                   <tr className="bg-slate-50 text-[10px] font-mono tracking-wider text-slate-400 border-b border-slate-100 uppercase font-bold">
                     <th className="p-4 w-12 text-center">#</th>
                     <th className="p-4">Student Name</th>
-                    <th className="p-4 w-72 text-center text-slate-500">Attendance Index Selection</th>
+                    <th className="p-4 w-72 text-center text-slate-500">Mark Attendance</th>
                     <th className="p-4">Staff Hand Remarks</th>
                   </tr>
                 </thead>
@@ -418,7 +418,7 @@ export default function AttendanceManagement({ user, currentTenant }: Attendance
                   {roster.length === 0 && (
                     <tr>
                       <td colSpan={4} className="p-8 text-center text-slate-400">
-                        No students found registered under this class node.
+                        No students found in this class.
                       </td>
                     </tr>
                   )}
@@ -444,7 +444,7 @@ export default function AttendanceManagement({ user, currentTenant }: Attendance
             <div className="p-12 text-center text-slate-400">
               <Users className="w-12 h-12 text-slate-200 mx-auto" />
               <p className="text-xs font-semibold mt-4">Select Room Class to Initiate Core Roll Call</p>
-              <p className="text-[11px] text-slate-400 mt-1">Please select an isolated class parameter in the header filters above to populate students.</p>
+              <p className="text-[11px] text-slate-400 mt-1">Please choose a class above to show students.</p>
             </div>
           )}
 
@@ -512,7 +512,7 @@ export default function AttendanceManagement({ user, currentTenant }: Attendance
                     <td colSpan={6} className="p-12 text-center text-slate-400">
                       <FileSpreadsheet className="w-10 h-10 text-slate-200 mx-auto" />
                       <p className="text-xs font-semibold mt-4">No Historical Sheets Found</p>
-                      <p className="text-[11px] text-slate-400 mt-1">Initiate a roll call using the button in the upper-right corner.</p>
+                      <p className="text-[11px] text-slate-400 mt-1">Start attendance using the button above.</p>
                     </td>
                   </tr>
                 )}

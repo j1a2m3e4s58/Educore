@@ -226,17 +226,17 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
       <div className="bg-[#031525] text-white p-5 rounded-lg border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1.5">
           <span className="text-[9px] font-mono font-bold bg-[#1A56DB] text-white px-2.5 py-0.5 rounded uppercase tracking-wider">
-             Authorized Student Terminal Node
+             STUDENT HOME
           </span>
-          <h3 className="text-base font-extrabold text-white tracking-tight">Student Academic Desktop: {student?.fullName || 'Julian Vance'}</h3>
+          <h3 className="text-base font-extrabold text-white tracking-tight">My school work today: {student?.fullName || 'Julian Vance'}</h3>
           <p className="text-xs text-slate-400">
-             Classroom Roster: <span className="font-bold text-blue-400">Class {student?.classId || 'Rank 10A'}</span> • Access learning materials, submit assignments, and review AI summaries.
+             Class: <span className="font-bold text-blue-400">{student?.classId || '10A'}</span>. Open assignments, read materials, submit work, and use study help.
           </p>
         </div>
 
         <div className="bg-emerald-500/10 border border-emerald-500/20 px-3 py-2 rounded text-[11px] font-mono flex items-center gap-1.5 self-start md:self-auto">
           <CheckSquare className="w-4 h-4 text-emerald-400" />
-          <span className="text-emerald-300 font-bold">Grid Security Cleared • Terminal Active</span>
+          <span className="text-emerald-300 font-bold">Ready for class work</span>
         </div>
       </div>
 
@@ -268,7 +268,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         
         <div className="bg-white p-4.5 rounded-lg border border-slate-200">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Assignments Outstanding</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Assignments to do</p>
           <p className="text-lg font-bold text-slate-900 font-mono mt-1">
             {scopedAssignments.filter(a => a.status === 'Pending').length} Active
           </p>
@@ -276,25 +276,25 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
         </div>
 
         <div className="bg-white p-4.5 rounded-lg border border-slate-200">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Vetted Revision Guides</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Study guides</p>
           <p className="text-lg font-bold text-slate-900 font-mono mt-1">
             {APPROVED_AI_REVISIONS.length} Modules
           </p>
-          <p className="text-[9px] text-slate-400 mt-1">Vetted by Faculty teachers</p>
+          <p className="text-[9px] text-slate-400 mt-1">Checked by teachers</p>
         </div>
 
         <div className="bg-[#1A56DB]/5 border border-blue-150 p-4.5 rounded-lg">
-          <p className="text-[10px] font-extrabold text-blue-800 uppercase tracking-wider">Semester Target Rating</p>
+          <p className="text-[10px] font-extrabold text-blue-800 uppercase tracking-wider">Target grade</p>
           <p className="text-lg font-bold text-blue-950 font-mono mt-1">Grade A</p>
           <p className="text-[9px] text-blue-700 font-bold mt-1">GPA: 3.8 / 4.0 scale</p>
         </div>
 
         <div className="bg-white p-4.5 rounded-lg border border-slate-200">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Library Resources</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Learning files</p>
           <p className="text-lg font-bold text-slate-900 font-mono mt-1">
             {scopedMaterials.length} Guides
           </p>
-          <p className="text-[9px] text-slate-400 mt-1">Includes syllabi chapters</p>
+          <p className="text-[9px] text-slate-400 mt-1">Notes, slides, and class files</p>
         </div>
 
       </div>
@@ -326,7 +326,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
         {/* DESKTOP SELECTOR COLUMN */}
         <div className="lg:col-span-1 space-y-4">
           <div className="bg-white rounded-lg border border-slate-200 p-4 space-y-1">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 font-mono">Academic Workspace</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 font-mono">What to open</p>
             
             <button
               data-scroll-to="messages-section"
@@ -335,7 +335,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
                 activePane === 'desktop' ? 'bg-[#1A56DB]/5 text-[#1A56DB]' : 'text-slate-600 hover:bg-slate-50'
               }`}
             >
-              My Dashboard Desktop
+              My Home
             </button>
 
             <button
@@ -355,7 +355,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
                 activePane === 'library' ? 'bg-[#1A56DB]/5 text-[#1A56DB]' : 'text-slate-650 hover:bg-slate-50'
               }`}
             >
-              Curriculum Core Materials
+              Learning Materials
             </button>
 
             <button
@@ -367,7 +367,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
             >
               <span className="flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>AI Revision summaries</span>
+                <span>AI Study Notes</span>
               </span>
               <span className="text-[9px] font-mono px-1 border rounded uppercase">safe</span>
             </button>
@@ -375,7 +375,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
 
           {/* ACTIVE CLASS TIMETABLE BOX */}
           <div className="bg-white p-4 rounded-lg border border-slate-200 space-y-3">
-            <h4 className="text-[10px] font-bold text-slate-450 uppercase tracking-wider font-mono">Today's Class Schedule</h4>
+            <h4 className="text-[10px] font-bold text-slate-450 uppercase tracking-wider font-mono">Today classes</h4>
             <div className="space-y-2">
               <div className="p-2 border border-slate-150 bg-slate-50 rounded text-xs space-y-1">
                 <div className="flex justify-between items-center font-bold text-slate-800">
@@ -654,7 +654,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
               </div>
 
               <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg text-xs leading-normal text-slate-500">
-                <span className="font-bold text-slate-800">Notice:</span> revision companion summaries are curated for your enrollments classes only. External schemas are strictly isolated by tenant node lines.
+                <span className="font-bold text-slate-800">Notice:</span> AI study notes are made from your class materials only.
               </div>
               <BackToPageMenu />
 

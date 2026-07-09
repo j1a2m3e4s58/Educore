@@ -440,7 +440,7 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
   };
 
   const handleDeleteInvoice = (id: string) => {
-    if (window.confirm("Under extreme security scope: do you intend to purge this voucher permanently?")) {
+    if (window.confirm("Do you want to delete this fee bill permanently?")) {
       persistInvoices(invoices.filter(i => i.id !== id));
     }
   };
@@ -481,10 +481,10 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
         <div>
           <div className="flex items-center gap-2">
             <DollarSign className="w-5 h-5 text-blue-600" />
-            <h2 className="text-lg font-bold text-slate-900 tracking-tight">Finances & Billing Ledger</h2>
+            <h2 className="text-lg font-bold text-slate-900 tracking-tight">School Fees</h2>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Construct localized fee definitions, generate bulk/itemized student billing templates, record manual payments, apply academic waiver relief, and analyze active collections.
+            Create fee bills, record payments, choose currency, and see what parents still need to pay.
           </p>
         </div>
 
@@ -516,7 +516,7 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
             className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-bold transition-all flex items-center gap-1.5 shadow cursor-pointer shadow-sm"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span>Generate Student Invoice</span>
+            <span>Create Fee Bill</span>
           </button>
         </div>
       </div>
@@ -578,7 +578,7 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
               activeTab === 'invoices' ? 'border-blue-600 text-blue-600 font-black' : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
-            Invoices & Accounts Ledger
+            Fee Bills & Payments
           </button>
           <button
             onClick={() => setActiveTab('items')}
@@ -810,7 +810,7 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
                       <tr>
                         <td colSpan={7} className="p-12 text-center text-slate-400 bg-slate-50/50">
                           <Clock className="w-8 h-8 text-slate-300 mx-auto mb-2" />
-                          <p className="text-xs font-semibold">No recent payments logged in the database row registry.</p>
+                          <p className="text-xs font-semibold">No recent payments recorded yet.</p>
                         </td>
                       </tr>
                     )}
@@ -1070,8 +1070,8 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
               {/* Billing Info block */}
               <div className="flex justify-between border-b border-slate-200 pb-4">
                 <div className="space-y-1">
-                  <h4 className="text-sm font-extrabold text-[#0A1E33] font-display uppercase tracking-tight">EDUCORE ACADEMIC LEDGER</h4>
-                  <p className="text-[10px] text-slate-400 font-mono">TENANT_NODE_ID: {viewingInvoice.tenantId}</p>
+                  <h4 className="text-sm font-extrabold text-[#0A1E33] font-display uppercase tracking-tight">SCHOOL FEE BILL</h4>
+                  <p className="text-[10px] text-slate-400 font-mono">School: {viewingInvoice.tenantId}</p>
                   <p className="text-xs text-slate-600 font-medium">{currentTenant?.name || 'Local School Authority'}</p>
                 </div>
 
@@ -1092,7 +1092,7 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
                   <p className="text-[11px] text-slate-500 font-medium">{viewingInvoice.className}</p>
                 </div>
                 <div className="text-right">
-                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Manual Gateway Status:</span>
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Payment Status:</span>
                   <p className="font-bold text-slate-600">Manual Entry / Card proxy</p>
                 </div>
               </div>
@@ -1203,14 +1203,14 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Payment Gateway</label>
+                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Payment Method</label>
                   <select
                     value={paymentMethod}
                     onChange={e => setPaymentMethod(e.target.value as PaymentRecord['paymentMethod'])}
                     className="w-full px-3 py-2 text-xs border border-slate-200 rounded text-slate-800 font-bold"
                   >
                     <option value="Manual Entry">Cash / Manual Entry</option>
-                    <option value="Mobile Money">Mobile Money Gateway</option>
+                    <option value="Mobile Money">Mobile Money</option>
                     <option value="Bank Transfer">Bank Wire Transfer</option>
                     <option value="Card Payment">Card Proxy Clearance</option>
                   </select>
@@ -1232,7 +1232,7 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
                 <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Clearing Notes</label>
                 <input
                   type="text"
-                  placeholder="e.g. Cleared by manual cash receipt vault ledger."
+                  placeholder="e.g. Paid by cash receipt or mobile money."
                   value={paymentNotes}
                   onChange={e => setPaymentNotes(e.target.value)}
                   className="w-full px-3 py-2 text-xs border border-slate-200 rounded"
@@ -1251,7 +1251,7 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
                   type="submit"
                   className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded font-bold shadow cursor-pointer"
                 >
-                  Approve Ledger deposit
+                  Record Payment
                 </button>
               </div>
 

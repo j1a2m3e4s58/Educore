@@ -343,35 +343,35 @@ export default function Sidebar({
                   <span className="flex h-2.5 w-2.5 relative">
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
                   </span>
-                  <span className="text-[11px] text-sky-300 font-mono font-bold tracking-widest leading-none">SCHOOL WORKSPACE</span>
+                  <span className="text-[11px] text-sky-300 font-mono font-bold tracking-widest leading-none">MY SCHOOL</span>
                 </div>
                 <div>
                   <p className="text-xs text-slate-300/80 leading-none">Current School</p>
                   <h3 className="text-base font-bold text-white mt-1.5 leading-tight line-clamp-1 flex items-center gap-2">
                     <Building2 className="w-4 h-4 text-blue-400 shrink-0" />
-                    {currentTenant?.name || 'Local Tenant'}
+                    {currentTenant?.name || 'My School'}
                   </h3>
                 </div>
                 <div className="flex items-center justify-between text-[10px] font-mono mt-1.5 text-slate-300">
                   <span className="bg-white/10 border border-white/15 px-2 py-1 rounded-full select-all font-bold">
-                    TID: {currentTenant?.id ? currentTenant?.id : 'STANDBY'}
+                    Code: {currentTenant?.code || currentTenant?.id || 'SCHOOL'}
                   </span>
                   <span className="flex items-center gap-1 text-cyan-200 font-bold">
-                    <Lock className="w-3 h-3" /> Encrypted
+                    <Lock className="w-3 h-3" /> Protected
                   </span>
                 </div>
               </>
             )}
           </div>
         ) : (
-          <div className="sidebar-glow p-2 mx-2 my-4 rounded-2xl border border-white/10 flex flex-col items-center justify-center gap-1 text-xs relative animate-in fade-in duration-200 py-3.5" title={isSuperAdmin ? "Super Admin Operations" : `Tenant Workspace: ${currentTenant?.name}`}>
+          <div className="sidebar-glow p-2 mx-2 my-4 rounded-2xl border border-white/10 flex flex-col items-center justify-center gap-1 text-xs relative animate-in fade-in duration-200 py-3.5" title={isSuperAdmin ? "Super Admin Operations" : `School: ${currentTenant?.name}`}>
             {isSuperAdmin ? (
               <ShieldAlert className="w-5 h-5 text-indigo-400 shrink-0" />
             ) : (
               <Building2 className="w-5 h-5 text-sky-400 shrink-0" />
             )}
             <span className="text-[8px] font-mono font-bold tracking-tighter text-slate-400 text-center uppercase truncate block max-w-full px-0.5">
-              {isSuperAdmin ? 'ADMIN' : (currentTenant?.code || 'TENANT')}
+              {isSuperAdmin ? 'ADMIN' : (currentTenant?.code || 'SCHOOL')}
             </span>
           </div>
         )}

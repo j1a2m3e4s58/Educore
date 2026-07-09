@@ -203,16 +203,16 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <span className="text-[9px] font-mono font-bold bg-[#1A56DB] text-white px-2.5 py-0.5 rounded uppercase tracking-wider">
-               Secure Parent Portal Terminals
+               PARENT HOME
             </span>
-            <h3 className="text-lg font-bold font-display tracking-tight text-white leading-tight">Welcome back, {user?.name || 'Robert Vance'}</h3>
+            <h3 className="text-lg font-bold font-display tracking-tight text-white leading-tight">My child school update</h3>
             <p className="text-xs text-slate-400">
-               Direct, authorized monitoring dashboard for child <span className="font-bold text-blue-400">{student?.fullName || 'Julian Vance'}</span> (Grade 10 Collegiate).
+               Welcome back, {user?.name || 'Robert Vance'}. Check attendance, assignments, fees, and school messages for <span className="font-bold text-blue-400">{student?.fullName || 'your child'}</span>.
             </p>
           </div>
 
           <div className="bg-[#1A56DB]/15 border border-blue-500/30 p-3 rounded text-[11px] max-w-[340px]">
-            <span className="font-extrabold text-blue-300 block mb-0.5">🔒 Multi-Tenant Sandboxing Active:</span> You are viewing authenticated records originating strictly within the <span className="underline font-bold text-white">{currentTenant?.name || 'Central Crest Collegiate'}</span> isolated directory node.
+            <span className="font-extrabold text-blue-300 block mb-0.5">Protected school records</span> You are only seeing records from <span className="underline font-bold text-white">{currentTenant?.name || 'your school'}</span>.
           </div>
         </div>
       </div>
@@ -238,7 +238,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
       <div className="rounded-lg border border-emerald-100 bg-emerald-50/60 p-4 shadow-sm">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Parent daily digest</p>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Today summary</p>
             <h4 className="text-base font-extrabold text-slate-950">Today for {student?.fullName || 'your child'}</h4>
           </div>
           <span className="w-fit rounded-full border border-emerald-200 bg-white px-3 py-1 text-[10px] font-black text-emerald-800">{digestDate}</span>
@@ -285,7 +285,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         
         <div className="bg-white p-4 rounded-lg border border-slate-200">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Attendance Index</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Attendance</p>
           <div className="flex items-baseline gap-1 mt-1">
             <span className="text-lg font-bold text-slate-900 font-mono">{attendanceRate}%</span>
             <span className="text-[10px] text-emerald-600 font-bold">Present Rate</span>
@@ -296,18 +296,18 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
         </div>
 
         <div className="bg-white p-4 rounded-lg border border-slate-200">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tuition Fees Outstanding</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Fees left to pay</p>
           <div className="flex items-baseline gap-1 mt-1">
             <span className={`text-lg font-bold font-mono ${totalBilledOutstanding > 0 ? 'text-amber-600' : 'text-slate-900'}`}>
               {formatMoney(totalBilledOutstanding)}
             </span>
-            <span className="text-[10px] text-slate-400 font-mono">Dues</span>
+            <span className="text-[10px] text-slate-400 font-mono">Left</span>
           </div>
-          <p className="text-[9px] text-[#1A56DB] font-medium mt-1">Waiver offsets calculated</p>
+          <p className="text-[9px] text-[#1A56DB] font-medium mt-1">Only current bills show here</p>
         </div>
 
         <div className="bg-white p-4 rounded-lg border border-slate-200">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Core Evaluation Average</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Class result</p>
           <div className="flex items-baseline gap-1 mt-1">
             <span className="text-lg font-bold text-slate-900 font-mono">88.5%</span>
             <span className="text-[10px] text-indigo-600 font-bold">Grade A</span>
@@ -316,12 +316,12 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
         </div>
 
         <div className="bg-white p-4 rounded-lg border border-slate-200">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pending Assessments</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Work to check</p>
           <div className="flex items-baseline gap-1 mt-1">
             <span className="text-lg font-bold text-slate-900 font-mono">{pendingAssignmentsCount} Tasks</span>
-            <span className="text-[10px] text-amber-600 font-bold">Queue</span>
+            <span className="text-[10px] text-amber-600 font-bold">Open</span>
           </div>
-          <p className="text-[9px] text-slate-400 mt-1">Includes submitted revision sheets</p>
+          <p className="text-[9px] text-slate-400 mt-1">Assignments and marked work</p>
         </div>
 
       </div>
@@ -332,7 +332,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
         {/* SIDE BAR NAVIGATION SELECTORS */}
         <div className="lg:col-span-1 space-y-4">
           <div className="bg-white rounded-lg border border-slate-200 p-4 space-y-1">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 font-mono">Child Metrics</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 font-mono">What to check</p>
             
             <button
               data-scroll-to="messages-section"
@@ -341,7 +341,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
                 activePane === 'overview' ? 'bg-[#1A56DB]/5 text-[#1A56DB]' : 'text-slate-650 hover:bg-slate-50'
               }`}
             >
-              School News & Overview
+              School News
             </button>
 
             <button
@@ -351,7 +351,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
                 activePane === 'academics' ? 'bg-[#1A56DB]/5 text-[#1A56DB]' : 'text-slate-650 hover:bg-slate-50'
               }`}
             >
-              Assignments & Card Results
+              Assignments & Results
             </button>
 
             <button
@@ -361,7 +361,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
                 activePane === 'billing' ? 'bg-[#1A56DB]/5 text-[#1A56DB]' : 'text-slate-650 hover:bg-slate-50'
               }`}
             >
-              Invoices & Tuition Payments
+              Fees & Payments
             </button>
 
             <button
@@ -371,13 +371,13 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
                 activePane === 'attendance' ? 'bg-[#1A56DB]/5 text-[#1A56DB]' : 'text-slate-650 hover:bg-slate-50'
               }`}
             >
-              Daily Attendance Calendar
+              Attendance
             </button>
           </div>
 
           {/* PUBLISHED CLASS TIMETABLE */}
           <div id="timetable-section" className="p-4 bg-white border border-slate-200 rounded-lg space-y-3 scroll-mt-4">
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">Published Class Timetable</h4>
+            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">Class timetable</h4>
             {publishedClassTimetable.length === 0 ? (
               <p className="text-[11px] font-semibold text-slate-500">The school has not published the timetable yet.</p>
             ) : (
@@ -396,7 +396,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
           </div>
           {/* TEACHER DIRECT DIRECTORY CARD */}
           <div className="p-4 bg-slate-50 border border-slate-205 rounded-lg space-y-3">
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">Direct Instructor Contact</h4>
+            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">Teacher contact</h4>
             
             <div className="space-y-2">
               <div className="text-xs bg-white p-2.5 rounded border border-slate-150">
@@ -665,7 +665,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
                 })}
 
                 {scopedInvoices.length === 0 && (
-                  <p className="text-xs text-slate-400 italic py-4 text-center">No outstanding billing statements recorded in terminal registry.</p>
+                  <p className="text-xs text-slate-400 italic py-4 text-center">No fee bill is showing for this period.</p>
                 )}
               </div>
               <BackToPageMenu />
@@ -690,7 +690,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
               />
               
               <div className="border-b border-slate-100 pb-3 flex justify-between items-center">
-                <h3 className="text-xs font-bold text-slate-700 uppercase tracking-widest font-mono">Chronological Pupil Attendance List</h3>
+                <h3 className="text-xs font-bold text-slate-700 uppercase tracking-widest font-mono">Attendance records</h3>
                 <span className="text-[10px] text-emerald-600 font-bold">Average Presence: {attendanceRate}%</span>
               </div>
 

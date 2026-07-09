@@ -415,9 +415,9 @@ function AcademicTimeScopeBar({ tenantId, role }: { tenantId: string; role: User
     <div className="mb-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <p className="text-xs font-black uppercase tracking-wide text-blue-700">Academic history filter</p>
+          <p className="text-xs font-black uppercase tracking-wide text-blue-700">School year records</p>
           <p className="mt-1 text-xs font-semibold text-slate-600">
-            Showing {scope.mode} records for {scope.term}, {scope.academicYear}. Old academic years stay searchable.
+            Viewing {scope.mode} records for {scope.term}, {scope.academicYear}. Old years stay saved so you can check them later.
           </p>
         </div>
         <div className="academic-scope-controls flex flex-wrap gap-2">
@@ -442,7 +442,7 @@ function AcademicTimeScopeBar({ tenantId, role }: { tenantId: string; role: User
               }}
               className="min-h-10 rounded-xl bg-slate-950 px-3 text-xs font-black text-white"
             >
-              Archive year
+              Save year record
             </button>
           )}
           {role === 'SchoolAdmin' && (
@@ -454,7 +454,7 @@ function AcademicTimeScopeBar({ tenantId, role }: { tenantId: string; role: User
               }}
               className="min-h-10 rounded-xl border border-blue-200 bg-blue-50 px-3 text-xs font-black text-blue-800"
             >
-              {showArchives ? 'Hide archives' : 'Open archives'}
+              {showArchives ? 'Hide old records' : 'Old records'}
             </button>
           )}
         </div>
@@ -1428,13 +1428,25 @@ function FirstTimeSetupWizard({ role, setActiveTab }: { role: User['role']; setA
   };
   const progress = Math.round((done.length / steps.length) * 100);
 
+  const guideTitle = role === 'Teacher'
+    ? 'My class work today'
+    : role === 'Parent'
+      ? 'My child school update'
+      : role === 'Student'
+        ? 'My school work today'
+        : role === 'SchoolAdmin'
+          ? 'School control and reports'
+          : role === 'SuperAdmin'
+            ? 'System control steps'
+            : 'Start here';
+
   return (
     <section className="role-onboarding-card mb-3 rounded-2xl border border-blue-100 bg-white p-3 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">Smart role onboarding</p>
-          <h2 className="mt-1 text-lg font-black text-slate-950 sm:text-xl">Your first steps for this account</h2>
-          <p className="mt-1 text-sm font-semibold text-slate-600">{progress}% complete. Tap a step to open it, or tick it when finished.</p>
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">Start here</p>
+          <h2 className="mt-1 text-lg font-black text-slate-950 sm:text-xl">{guideTitle}</h2>
+          <p className="mt-1 text-sm font-semibold text-slate-600">{progress}% done. Tap a step to open it, or tick it when finished.</p>
         </div>
         <button
           onClick={() => {
@@ -1793,7 +1805,7 @@ function FormValidationGuidePanel({ role, setActiveTab }: { role: User['role']; 
     : [
         { title: 'Students', tab: 'school-students', tip: 'Names, class, parent contact, and status should be filled.' },
         { title: 'Teachers', tab: 'school-teachers', tip: 'Add subject, class, and timetable load so work can be tracked.' },
-        { title: 'Fees', tab: 'school-fees', tip: 'Select currency, period, amount, due date, and student/class scope.' },
+        { title: 'Fees', tab: 'school-fees', tip: 'Select currency, period, amount, due date, and student or class.' },
         { title: 'Settings', tab: 'school-settings', tip: 'Save academic year, term/semester, currency, and school branding.' },
       ];
   return (

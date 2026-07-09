@@ -72,7 +72,7 @@ export default function SchoolAdminDashboard({
         <div className="z-10">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-[10px] font-mono bg-blue-50 text-[#1A56DB] px-2 py-0.5 rounded border border-blue-100 font-bold uppercase">
-               {simpleMode ? 'Manager / Head Account' : 'Virtual Deployed Workspace'}
+               {simpleMode ? 'Manager / Head Account' : 'School manager workspace'}
             </span>
             <span className="text-[10px] items-center gap-1 font-mono text-emerald-600 bg-emerald-50 border border-emerald-100 px-1.5 py-0.5 rounded font-bold hidden sm:flex">
                <Database className="w-2.5 h-2.5" /> SECURE_TENANT: {currentTenant?.id}
@@ -82,13 +82,13 @@ export default function SchoolAdminDashboard({
              {currentTenant?.name || 'School Dashboard'}
           </h2>
           <p className="text-[13px] sm:text-xs text-slate-550 mt-1 max-w-2xl leading-relaxed">
-              {simpleMode ? 'Manage students, teachers, fees, attendance, lessons, messages, and school reports.' : 'Manager / Head console. Managing academics, rosters, terms config, and isolated secure student data.'}
+              {simpleMode ? 'Manage students, teachers, fees, attendance, lessons, messages, and school reports.' : 'Manage school records, terms, teachers, students, and reports.'}
           </p>
         </div>
 
         <div className="flex items-center justify-between gap-2.5 z-10 shrink-0 bg-slate-50 sm:bg-transparent border sm:border-0 border-slate-100 rounded-xl sm:rounded-none p-3 sm:p-0">
           <div className="text-left sm:text-right">
-             <p className="text-[10px] font-mono font-bold text-slate-400">{simpleMode ? 'SCHOOL CODE' : 'DEPLOYED REGISTRY'}</p>
+             <p className="text-[10px] font-mono font-bold text-slate-400">SCHOOL CODE</p>
              <p className="text-xs font-bold text-slate-800 uppercase mt-0.5">{currentTenant?.code || 'LOCAL'}</p>
           </div>
           <div className="w-12 h-12 bg-indigo-50 border border-indigo-100 text-[#1A56DB] font-display font-bold text-lg rounded shadow-sm flex items-center justify-center select-none uppercase">
@@ -252,7 +252,7 @@ export default function SchoolAdminDashboard({
                  </button>
                </div>
                
-               <span className="text-[9px] font-mono text-slate-400 self-start sm:self-auto">QUEUE_ACTIVE</span>
+               <span className="text-[9px] font-mono text-slate-400 self-start sm:self-auto">Needs checking</span>
             </div>
 
             {activeReviewTab === 'assignments' ? (
@@ -288,16 +288,16 @@ export default function SchoolAdminDashboard({
                  <div className="pt-2 flex items-start gap-2 text-rose-500 shrink-0">
                    <AlertCircle className="w-3.5 h-3.5 mt-0.5 shrink-0" />
                    <div className="flex-1 min-w-0">
-                     <h4 className="text-xs font-bold text-slate-800 leading-tight">Critical Roster Revision Approval</h4>
-                     <p className="text-[10px] text-slate-500 mt-1">Grade 10 mathematics split proposal requires headmaster signature clearance.</p>
+                     <h4 className="text-xs font-bold text-slate-800 leading-tight">Class list change needs approval</h4>
+                     <p className="text-[10px] text-slate-500 mt-1">Grade 10 mathematics class split is waiting for the head of school.</p>
                    </div>
                  </div>
 
                  <div className="pt-3 flex items-start gap-2 text-amber-500 shrink-0">
                    <AlertCircle className="w-3.5 h-3.5 mt-0.5 shrink-0" />
                    <div className="flex-1 min-w-0">
-                     <h4 className="text-xs font-bold text-slate-800 leading-tight">Q1 Consolidated Balance Sheet Index</h4>
-                     <p className="text-[10px] text-slate-500 mt-1">Audit registry of school system subscriptions and book inventories ready.</p>
+                     <h4 className="text-xs font-bold text-slate-800 leading-tight">School finance summary ready</h4>
+                     <p className="text-[10px] text-slate-500 mt-1">Fee, subscription, and book records are ready to review.</p>
                    </div>
                  </div>
               </div>
@@ -309,7 +309,7 @@ export default function SchoolAdminDashboard({
             onClick={() => onTriggerAlert('Stage 1 Roster & Assignment details validated successfully.')}
             className="text-center text-xs font-bold text-[#1A56DB] hover:underline cursor-pointer mt-4"
           >
-            Mark Queues Verified →
+            Mark as checked →
           </button>
         </div>
 
@@ -317,9 +317,9 @@ export default function SchoolAdminDashboard({
         <div className="bg-white rounded-xl sm:rounded border border-banking-border p-4 sm:p-5 flex flex-col justify-between shadow-sm md:shadow-none">
           <div>
             <div className="pb-3 border-b border-slate-100 flex items-center justify-between gap-2">
-               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">FACULTY ROSTER</h3>
+               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">TEACHERS</h3>
                <span className="text-[9px] bg-slate-100 text-slate-600 font-mono font-bold px-1.5 py-0.5 rounded">
-                  ISOLATED COUNT: {localTeachers.length}
+                  TOTAL: {localTeachers.length}
                </span>
             </div>
 
@@ -327,8 +327,8 @@ export default function SchoolAdminDashboard({
               {localTeachers.length === 0 ? (
                 <div className="py-8 text-center text-slate-400">
                   <FolderOpen className="w-8 h-8 text-slate-350 mx-auto mb-2" />
-                  <p className="text-xs font-semibold">No teachers enrolled in this workspace.</p>
-                  <p className="text-[10px] text-slate-400 mt-0.5">Use the Faculty Roles page to enroll new accounts.</p>
+                  <p className="text-xs font-semibold">No teachers added yet.</p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">Open Users or Teachers to create teacher accounts.</p>
                 </div>
               ) : (
                 localTeachers.map((teacher) => (
@@ -347,8 +347,8 @@ export default function SchoolAdminDashboard({
           </div>
 
           <div className="p-3 bg-slate-50 border border-slate-150 rounded text-[9px] font-mono text-slate-400 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-             <span>ROW_ENCRYPT_SCOPE: {currentTenant?.code}</span>
-             <span>100% PRIVATE WORKSPACE</span>
+             <span>School: {currentTenant?.code}</span>
+             <span>Private school records</span>
           </div>
         </div>
 
