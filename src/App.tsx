@@ -900,15 +900,6 @@ function SimplePageStart({
       </div>
 
       <TodayFocus role={role} />
-      <RoleTodayHub role={role} setActiveTab={setActiveTab} />
-      <ContinueWorkflowPanel role={role} setActiveTab={setActiveTab} />
-      {role === 'SchoolAdmin' && currentTenant && (
-        <ManagerWorkflowSummary tenantId={currentTenant.id} />
-      )}
-
-      {role === 'SchoolAdmin' && activeTab === 'school-dashboard' && (
-        <SchoolSetupChecklist setActiveTab={setActiveTab} />
-      )}
 
       {recentTabs.filter(tab => tab !== activeTab).length > 0 && (
         <div className="mt-3 rounded-2xl border border-slate-100 bg-white p-3 sm:mt-4">
@@ -2277,43 +2268,59 @@ function TaskModePanel({
 }) {
   const tasks = role === 'SchoolAdmin'
     ? [
-        { label: 'Review teachers', tab: 'school-review', icon: ClipboardCheck },
-        { label: 'Make timetable', tab: 'school-teachers', icon: Calendar },
-        { label: 'Check subjects', tab: 'school-subjects', icon: BookOpen },
-        { label: 'Collect fees', tab: 'school-fees', icon: DollarSign },
-        { label: 'Send message', tab: 'school-comm', icon: MessageSquare },
-        { label: 'Register student', tab: 'school-students', icon: Users },
+        { label: 'Students', hint: 'Add or find learners', tab: 'school-students', icon: Users },
+        { label: 'Teachers', hint: 'Add staff and workload', tab: 'school-teachers', icon: GraduationCap },
+        { label: 'Fees', hint: 'Bills and payments', tab: 'school-fees', icon: DollarSign },
+        { label: 'Messages', hint: 'Contact parents', tab: 'school-comm', icon: MessageSquare },
+        { label: 'Timetable', hint: 'Plan classes', tab: 'school-teachers', icon: Calendar },
+        { label: 'Review Work', hint: 'Check teacher activity', tab: 'school-review', icon: ClipboardCheck },
       ]
     : role === 'Teacher'
       ? [
-          { label: 'Mark attendance', tab: 'teacher-attendance', icon: ClipboardCheck },
-          { label: 'Upload materials', tab: 'teacher-materials', icon: BookOpen },
-          { label: 'AI notes', tab: 'teacher-ai-suite', icon: Cpu },
-          { label: 'AI exam questions', tab: 'teacher-ai-suite', icon: Cpu },
-          { label: 'Give assignment', tab: 'teacher-assignments', icon: BookOpen },
-          { label: 'Record lesson', tab: 'teacher-lessons', icon: Calendar },
+          { label: 'Attendance', hint: 'Mark today class', tab: 'teacher-attendance', icon: ClipboardCheck },
+          { label: 'Materials', hint: 'Upload or view files', tab: 'teacher-materials', icon: BookOpen },
+          { label: 'Assignments', hint: 'Give class work', tab: 'teacher-assignments', icon: ClipboardList },
+          { label: 'Lesson Record', hint: 'Pages taught today', tab: 'teacher-lessons', icon: Calendar },
+          { label: 'AI Notes', hint: 'Make lesson notes', tab: 'teacher-ai-suite', icon: Cpu },
+          { label: 'AI Questions', hint: 'Set exam questions', tab: 'teacher-ai-suite', icon: Cpu },
         ]
       : role === 'SuperAdmin'
         ? [
-            { label: 'Add school', tab: 'register', icon: PlusCircle },
-            { label: 'Open schools', tab: 'schools', icon: Building2 },
-            { label: 'Manage users', tab: 'roles', icon: Users },
-            { label: 'Check support', tab: 'sa-support-tickets', icon: HelpCircle },
+            { label: 'Add School', hint: 'Create school account', tab: 'register', icon: PlusCircle },
+            { label: 'Schools', hint: 'Open all schools', tab: 'schools', icon: Building2 },
+            { label: 'Users', hint: 'Manage access', tab: 'roles', icon: Users },
+            { label: 'Support', hint: 'Check help requests', tab: 'sa-support-tickets', icon: HelpCircle },
           ]
+        : role === 'Parent'
+          ? [
+              { label: 'Assignments', hint: 'Work given by teachers', tab: 'parent-dashboard', icon: BookOpen },
+              { label: 'Fees', hint: 'Bills and balance', tab: 'parent-dashboard', icon: DollarSign },
+              { label: 'Attendance', hint: 'Present or absent', tab: 'parent-dashboard', icon: ClipboardCheck },
+              { label: 'Messages', hint: 'School notices', tab: 'parent-dashboard', icon: MessageSquare },
+              { label: 'Calendar', hint: 'Events and dates', tab: 'school-calendar', icon: Calendar },
+            ]
+          : role === 'Student'
+            ? [
+                { label: 'Assignments', hint: 'Homework to do', tab: 'student-dashboard', icon: BookOpen },
+                { label: 'Materials', hint: 'Notes and files', tab: 'student-dashboard', icon: Library },
+                { label: 'Timetable', hint: 'Today classes', tab: 'student-dashboard', icon: Calendar },
+                { label: 'AI Study Notes', hint: 'Revision help', tab: 'student-dashboard', icon: Cpu },
+                { label: 'Calendar', hint: 'Events and dates', tab: 'school-calendar', icon: Calendar },
+              ]
         : [
-            { label: 'Go home', tab: getHomeTab(role), icon: Home },
-            { label: 'Check calendar', tab: 'school-calendar', icon: Calendar },
-            { label: 'Open hub', tab: 'edu-ecosystem', icon: MessageSquare },
+            { label: 'Home', hint: 'Main page', tab: getHomeTab(role), icon: Home },
+            { label: 'Calendar', hint: 'School dates', tab: 'school-calendar', icon: Calendar },
+            { label: 'Updates', hint: 'School information', tab: 'edu-ecosystem', icon: MessageSquare },
           ];
 
   return (
-    <section className="mb-3 rounded-2xl border border-slate-200 bg-slate-950 p-3 text-white shadow-xl shadow-slate-900/15 sm:mb-4 sm:rounded-3xl sm:p-4">
+    <section className="mb-3 rounded-2xl border border-blue-100 bg-white p-3 text-slate-950 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-200">Task Mode</p>
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">Main buttons</p>
           <h2 className="mt-1 text-lg font-black sm:text-xl">What do you want to do?</h2>
         </div>
-        <span className="hidden rounded-full bg-white/10 px-3 py-1 text-xs font-black text-cyan-100 sm:inline-flex">Choose one</span>
+        <span className="hidden rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-800 sm:inline-flex">Choose one</span>
       </div>
       <div className="mt-3 grid grid-cols-2 gap-2 sm:mt-4 sm:grid-cols-2 lg:grid-cols-6">
         {tasks.map(task => {
@@ -2323,12 +2330,15 @@ function TaskModePanel({
               key={task.label}
               data-scroll-to={getSectionTarget(task.tab, task.label)}
               onClick={() => setActiveTab(task.tab)}
-              className="flex min-h-16 flex-col items-start justify-between gap-2 rounded-2xl border border-white/10 bg-white/10 p-2.5 text-left text-xs font-black text-white transition hover:bg-white/15 active:scale-95 sm:min-h-20 sm:flex-row sm:items-center sm:justify-start sm:gap-3 sm:p-3 sm:text-sm"
+              className="flex min-h-20 flex-col items-start justify-between gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-left text-xs font-black text-slate-950 transition hover:border-blue-200 hover:bg-blue-50 active:scale-95 sm:min-h-24 sm:p-4 sm:text-sm"
             >
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-cyan-300 text-slate-950 sm:h-11 sm:w-11 sm:rounded-2xl">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm sm:h-11 sm:w-11 sm:rounded-2xl">
                 <Icon className="h-5 w-5" />
               </span>
-              <span>{task.label}</span>
+              <span>
+                <span className="block">{task.label}</span>
+                <span className="mt-1 block text-[10px] font-bold leading-tight text-slate-500 sm:text-xs">{task.hint}</span>
+              </span>
             </button>
           );
         })}
@@ -3744,37 +3754,64 @@ export default function App() {
               {currentTenant && (
                 <AcademicTimeScopeBar tenantId={currentTenant.id} role={currentUser.role} />
               )}
-              <FirstTimeSetupWizard
-                role={currentUser.role}
-                setActiveTab={(tab) => {
-                  secureSetActiveTab(tab);
-                  setIsMobileMenuOpen(false);
-                }}
-              />
-              <DashboardCleanupPanel compact={compactDashboard} setCompact={setCompactDashboard} />
-              <FormValidationGuidePanel
-                role={currentUser.role}
-                setActiveTab={(tab) => {
-                  secureSetActiveTab(tab);
-                  setIsMobileMenuOpen(false);
-                }}
-              />
-              <UniversalTodayPanel
-                role={currentUser.role}
-                tenantId={currentTenant?.id}
-                setActiveTab={(tab) => {
-                  secureSetActiveTab(tab);
-                  setIsMobileMenuOpen(false);
-                }}
-              />
-              <NotificationCenterPanel
-                role={currentUser.role}
-                tenantId={currentTenant?.id}
-                setActiveTab={(tab) => {
-                  secureSetActiveTab(tab);
-                  setIsMobileMenuOpen(false);
-                }}
-              />
+              {isSimpleMode && (
+                <>
+                  <TaskModePanel
+                    role={currentUser.role}
+                    setActiveTab={(tab) => {
+                      secureSetActiveTab(tab);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                  <SimplePageStart
+                    activeTab={activeTab}
+                    role={currentUser.role}
+                    recentTabs={recentTabs}
+                    currentTenant={currentTenant}
+                    setActiveTab={(tab) => {
+                      secureSetActiveTab(tab);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                </>
+              )}
+              {!isSimpleMode && (
+                <FirstTimeSetupWizard
+                  role={currentUser.role}
+                  setActiveTab={(tab) => {
+                    secureSetActiveTab(tab);
+                    setIsMobileMenuOpen(false);
+                  }}
+                />
+              )}
+              {!isSimpleMode && (
+                <>
+                  <DashboardCleanupPanel compact={compactDashboard} setCompact={setCompactDashboard} />
+                  <FormValidationGuidePanel
+                    role={currentUser.role}
+                    setActiveTab={(tab) => {
+                      secureSetActiveTab(tab);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                  <UniversalTodayPanel
+                    role={currentUser.role}
+                    tenantId={currentTenant?.id}
+                    setActiveTab={(tab) => {
+                      secureSetActiveTab(tab);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                  <NotificationCenterPanel
+                    role={currentUser.role}
+                    tenantId={currentTenant?.id}
+                    setActiveTab={(tab) => {
+                      secureSetActiveTab(tab);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                </>
+              )}
               <ManagerApprovalPanel role={currentUser.role} tenantId={currentTenant?.id} />
               <SchoolBackupRestorePanel role={currentUser.role} tenantId={currentTenant?.id} />
               {!compactDashboard && (
@@ -3796,50 +3833,37 @@ export default function App() {
                   />
                 </>
               )}
-              <CompleteTodayChecklist
-                role={currentUser.role}
-                tenantId={currentTenant?.id}
-                setActiveTab={(tab) => {
-                  secureSetActiveTab(tab);
-                  setIsMobileMenuOpen(false);
-                }}
-              />
-              <RoleReportsPanel
-                role={currentUser.role}
-                tenantId={currentTenant?.id}
-                setActiveTab={(tab) => {
-                  secureSetActiveTab(tab);
-                  setIsMobileMenuOpen(false);
-                }}
-              />
-              <PrintExportCenter
-                role={currentUser.role}
-                tenantId={currentTenant?.id}
-                setActiveTab={(tab) => {
-                  secureSetActiveTab(tab);
-                  setIsMobileMenuOpen(false);
-                }}
-              />
-              {!compactDashboard && <SimpleProofTrailPanel role={currentUser.role} tenantId={currentTenant?.id} />}
+              {!isSimpleMode && (
+                <>
+                  <CompleteTodayChecklist
+                    role={currentUser.role}
+                    tenantId={currentTenant?.id}
+                    setActiveTab={(tab) => {
+                      secureSetActiveTab(tab);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                  <RoleReportsPanel
+                    role={currentUser.role}
+                    tenantId={currentTenant?.id}
+                    setActiveTab={(tab) => {
+                      secureSetActiveTab(tab);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                  <PrintExportCenter
+                    role={currentUser.role}
+                    tenantId={currentTenant?.id}
+                    setActiveTab={(tab) => {
+                      secureSetActiveTab(tab);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  />
+                </>
+              )}
+              {!isSimpleMode && !compactDashboard && <SimpleProofTrailPanel role={currentUser.role} tenantId={currentTenant?.id} />}
               {isSimpleMode && (
                 <>
-                  <SimplePageStart
-                    activeTab={activeTab}
-                    role={currentUser.role}
-                    recentTabs={recentTabs}
-                    currentTenant={currentTenant}
-                    setActiveTab={(tab) => {
-                      secureSetActiveTab(tab);
-                      setIsMobileMenuOpen(false);
-                    }}
-                  />
-                  <TaskModePanel
-                    role={currentUser.role}
-                    setActiveTab={(tab) => {
-                      secureSetActiveTab(tab);
-                      setIsMobileMenuOpen(false);
-                    }}
-                  />
                   <SchoolWorkflowMap
                     role={currentUser.role}
                     setActiveTab={(tab) => {

@@ -182,13 +182,13 @@ export default function Sidebar({
 
   const simpleVisibleIds: Record<string, string[]> = {
     SuperAdmin: ['dashboard', 'register', 'schools', 'roles', 'settings'],
-    SchoolAdmin: ['school-dashboard', 'school-review', 'school-students', 'school-teachers', 'school-classes', 'school-subjects', 'school-fees', 'school-comm', 'school-calendar', 'school-users', 'school-settings'],
+    SchoolAdmin: ['school-dashboard', 'school-students', 'school-teachers', 'school-fees', 'school-comm', 'school-calendar', 'school-review', 'school-users'],
     Accountant: ['school-dashboard', 'school-fees', 'school-comm', 'school-calendar'],
     Supervisor: ['school-dashboard', 'school-review', 'school-students', 'school-teachers', 'school-classes', 'school-subjects', 'school-calendar'],
-    AssistantAdmin: ['school-dashboard', 'school-review', 'school-students', 'school-teachers', 'school-classes', 'school-subjects', 'school-fees', 'school-comm', 'school-calendar', 'school-users'],
+    AssistantAdmin: ['school-dashboard', 'school-students', 'school-teachers', 'school-fees', 'school-comm', 'school-calendar', 'school-review', 'school-users'],
     Teacher: ['teacher-dashboard', 'teacher-attendance', 'teacher-materials', 'teacher-ai-suite', 'teacher-assignments', 'teacher-lessons'],
-    Parent: ['parent-dashboard', 'school-calendar', 'edu-ecosystem'],
-    Student: ['student-dashboard', 'school-calendar', 'edu-ecosystem'],
+    Parent: ['parent-dashboard', 'school-calendar'],
+    Student: ['student-dashboard', 'school-calendar'],
   };
 
   const currentNav = simpleMode
