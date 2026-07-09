@@ -239,7 +239,7 @@ export default function TeacherDashboard({
       <div className="bg-white rounded border border-[#E2E8F0] p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
         <div>
           <span className="text-[10px] bg-[#EBF5FF] text-[#1E40AF] px-2 py-0.5 rounded-sm font-mono font-bold uppercase tracking-wider">
-            TEACHER HOME
+            TEACH TODAY
           </span>
           <h1 className="text-xl font-bold font-display text-slate-900 mt-2 tracking-tight">
             My class work today

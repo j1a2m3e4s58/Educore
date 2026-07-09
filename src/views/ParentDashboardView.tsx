@@ -164,8 +164,8 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
   const latestNotice = announcements[0];
   const dailyDigest = [
     { title: 'Attendance', value: todayAttendance ? todayAttendance.status : 'No record', detail: todayAttendance ? `${todayAttendance.date} - ${todayAttendance.remark}` : 'Teacher attendance will appear here.', action: 'Open attendance', pane: 'attendance' as const },
-    { title: 'Assignment', value: nextAssignment ? nextAssignment.status : 'No task', detail: nextAssignment ? `${nextAssignment.title} due ${nextAssignment.dueDate}` : 'No assignment found for this period.', action: 'Open assignments', pane: 'academics' as const },
-    { title: 'Fees', value: nextInvoice ? formatMoney(nextInvoice.balance) : 'No bill', detail: nextInvoice ? `${nextInvoice.status} - due ${nextInvoice.dueDate}` : 'No invoice found for this period.', action: 'Open fees', pane: 'billing' as const },
+    { title: 'Assignment', value: nextAssignment ? nextAssignment.status : 'No task', detail: nextAssignment ? `${nextAssignment.title} due ${nextAssignment.dueDate}` : 'No assignment for this period. Check another term or wait for the teacher to post work.', action: 'Open assignments', pane: 'academics' as const },
+    { title: 'Fees', value: nextInvoice ? formatMoney(nextInvoice.balance) : 'No bill', detail: nextInvoice ? `${nextInvoice.status} - due ${nextInvoice.dueDate}` : 'No fees for this term yet. The school will publish bills here.', action: 'Open fees', pane: 'billing' as const },
     { title: 'Notice', value: latestNotice ? 'New notice' : 'No notice', detail: latestNotice ? latestNotice.title : 'No school notice is showing now.', action: 'Open news', pane: 'overview' as const },
   ];
   const totalBilledOutstanding = scopedInvoices.reduce((acc, curr) => acc + curr.balance, 0);
@@ -203,7 +203,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <span className="text-[9px] font-mono font-bold bg-[#1A56DB] text-white px-2.5 py-0.5 rounded uppercase tracking-wider">
-               PARENT HOME
+               CHECK CHILD TODAY
             </span>
             <h3 className="text-lg font-bold font-display tracking-tight text-white leading-tight">My child school update</h3>
             <p className="text-xs text-slate-400">
@@ -276,7 +276,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
               <p className="text-xs font-semibold text-slate-600">{item.detail}</p>
             </div>
           )) : (
-            <p className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-3 text-xs font-bold text-slate-500">No parent-visible records found for this selected period.</p>
+            <p className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-3 text-xs font-bold text-slate-500">No record is showing for this period. Try another date, term, or semester.</p>
           )}
         </div>
       </div>
@@ -426,7 +426,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
                   { label: 'View fees', onClick: () => setActivePane('billing'), scrollTo: 'fees-section' },
                 ]}
                 isEmpty={announcements.length === 0}
-                emptyText="No school notice is available right now. Check fees, assignments, or attendance instead."
+                emptyText="No school notice is available right now. You can still check assignments, fees, or attendance."
               />
               
               <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
@@ -483,7 +483,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
                   { label: 'Check attendance', onClick: () => setActivePane('attendance'), scrollTo: 'attendance-section' },
                 ]}
                 isEmpty={scopedAssignments.length === 0}
-                emptyText="No assignment is showing for your child yet. The teacher assignment will appear here when posted."
+                emptyText="No assignment is showing for your child yet. When the teacher posts work, it will appear here."
               />
               
               {/* ASSIGNMENTS TRACKING */}
@@ -582,7 +582,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
                   { label: 'View attendance', onClick: () => setActivePane('attendance'), scrollTo: 'attendance-section' },
                 ]}
                 isEmpty={scopedInvoices.length === 0}
-                emptyText="No invoice is showing for this child. The school will publish fees for the term or semester here."
+                emptyText="No fee bill is showing for this child. The school will publish term or semester fees here."
               />
               
               <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
@@ -686,7 +686,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
                   { label: 'View fees', onClick: () => setActivePane('billing'), scrollTo: 'fees-section' },
                 ]}
                 isEmpty={scopedAttendanceRecords.length === 0}
-                emptyText="No attendance record is showing yet. Teacher attendance records will appear here."
+                emptyText="No attendance record is showing yet. Once the teacher marks attendance, it will appear here."
               />
               
               <div className="border-b border-slate-100 pb-3 flex justify-between items-center">
