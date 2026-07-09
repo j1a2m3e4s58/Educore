@@ -3276,7 +3276,6 @@ export default function App() {
 
   // Auto-launch guided tour on first-time visit
   useEffect(() => {
-    if (!currentUser) return;
     const isCompleted = localStorage.getItem("educore_tour_completed");
     const isPhone = window.matchMedia?.('(max-width: 767px)').matches;
     if (!isCompleted && !isPhone) {
@@ -3285,7 +3284,7 @@ export default function App() {
       }, 800);
       return () => clearTimeout(t);
     }
-  }, [currentUser]);
+  }, []);
 
   // Listen for instant workspace swap commands emitted from widgets
   useEffect(() => {
