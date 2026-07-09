@@ -5,6 +5,7 @@ import {
   Plus, 
   FileText, 
   Download, 
+  UploadCloud,
   Trash2, 
   Calendar, 
   Paperclip, 
@@ -72,12 +73,26 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
     description: '',
     category: 'Textbook',
     fileType: 'pdf',
-    fileSize: '2.4 MB',
+    fileSize: '',
+    fileName: '',
     gradeClassFilter: '',
     subjectFilter: '',
     shareScope: user.role === 'SchoolAdmin' ? 'SchoolShared' : 'TeacherOnly'
   });
   const [uploadErrors, setUploadErrors] = useState<Record<string, string>>({});
+
+  const formatFileSize = (bytes: number) => {
+    if (!bytes) return '0 KB';
+    const units = ['Bytes', 'KB', 'MB', 'GB'];
+    const index = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+    const value = bytes / Math.pow(1024, index);
+    return `${value.toFixed(index === 0 ? 0 : 1)} ${units[index]}`;
+  };
+
+  const getFileExtension = (name: string) => {
+    const ext = name.split('.').pop()?.toLowerCase() || 'file';
+    return ext.length > 8 ? 'file' : ext;
+  };
 
   const [useLogValues, setUseLogValues] = useState({
     classId: '',
@@ -168,6 +183,22 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
     }
   };
 
+  const handleUploadFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadValues(prev => ({
+      ...prev,
+      fileName: file.name,
+      fileSize: formatFileSize(file.size),
+      fileType: getFileExtension(file.name)
+    }));
+    setUploadErrors(prev => {
+      const copy = { ...prev };
+      delete copy.fileName;
+      return copy;
+    });
+  };
+
   // Submit materials upload simulation
   const handleUploadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -177,6 +208,7 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
     const errors: Record<string, string> = {};
     if (!uploadValues.title.trim()) errors.title = 'Material title is required.';
     if (!uploadValues.description.trim()) errors.description = 'Brief details are required.';
+    if (!uploadValues.fileName) errors.fileName = 'Choose the file to upload.';
     if (!uploadValues.gradeClassFilter) errors.gradeClassFilter = 'Choose the class.';
     if (!uploadValues.subjectFilter) errors.subjectFilter = 'Choose the subject.';
 
@@ -197,6 +229,8 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
       category: uploadValues.category,
       fileType: uploadValues.fileType,
       fileSize: uploadValues.fileSize,
+      fileName: uploadValues.fileName,
+      downloadUrl: uploadValues.fileName,
       gradeClassFilter: uploadValues.gradeClassFilter,
       subjectFilter: uploadValues.subjectFilter,
       uploadedByTeacherId: uploaderId,
@@ -232,7 +266,8 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
       description: '',
       category: 'Textbook',
       fileType: 'pdf',
-      fileSize: '3.5 MB',
+      fileSize: '',
+      fileName: '',
       gradeClassFilter: '',
       subjectFilter: '',
       shareScope: user.role === 'SchoolAdmin' ? 'SchoolShared' : 'TeacherOnly'
@@ -676,6 +711,12 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
                     <p className="mt-2 rounded bg-slate-50 px-2 py-1 text-[9px] font-black uppercase tracking-wide text-slate-500">
                       File group: {getClassLabel(mat.gradeClassFilter)} / {getSubjectLabel(mat.subjectFilter)} / {mat.uploadedByTeacherName || 'School staff'} / {(mat.uploadDate || '').slice(0, 4) || 'Year'} / {mat.fileType?.toUpperCase()}
                     </p>
+                    {mat.fileName && (
+                      <p className="mt-2 flex items-center gap-1.5 rounded border border-blue-100 bg-blue-50 px-2 py-1 text-[9px] font-black text-blue-800">
+                        <Paperclip className="h-3 w-3 shrink-0" />
+                        <span className="truncate">{mat.fileName}</span>
+                      </p>
+                    )}
                   </div>
 
                   {/* Badges details meta */}
@@ -818,7 +859,8 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
                         description: '',
                         category: 'Textbook',
                         fileType: 'pdf',
-                        fileSize: '2.4 MB',
+                        fileSize: '',
+                        fileName: '',
                         gradeClassFilter: '',
                         subjectFilter: '',
                         shareScope: user.role === 'SchoolAdmin' ? 'SchoolShared' : 'TeacherOnly'
@@ -863,6 +905,34 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
                   className={`w-full p-2 text-xs border rounded focus:border-blue-400 focus:outline-none ${uploadErrors.description ? 'border-rose-400' : 'border-slate-200'}`}
                 />
                 {uploadErrors.description && <p className="text-[9px] text-rose-600 font-mono">{uploadErrors.description}</p>}
+              </div>
+
+              <div className={`rounded-xl border p-3 ${uploadErrors.fileName ? 'border-rose-300 bg-rose-50' : 'border-blue-100 bg-blue-50/70'}`}>
+                <label htmlFor="lesson-material-file" className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-blue-300 bg-white px-4 py-5 text-center hover:border-blue-500">
+                  <UploadCloud className="h-8 w-8 text-blue-600" />
+                  <span className="text-sm font-black text-slate-950">Choose file from this device</span>
+                  <span className="text-[11px] font-semibold text-slate-500">PDF, Word, PowerPoint, Excel, video, image, or notes file</span>
+                  <span className="rounded-full bg-blue-600 px-3 py-1 text-[10px] font-black uppercase tracking-wide text-white">Browse file</span>
+                </label>
+                <input
+                  id="lesson-material-file"
+                  type="file"
+                  onChange={handleUploadFileChange}
+                  className="sr-only"
+                  accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.mp4,.mov,.jpg,.jpeg,.png,.txt"
+                />
+                {uploadValues.fileName ? (
+                  <div className="mt-3 flex items-center justify-between gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2">
+                    <div className="min-w-0">
+                      <p className="truncate text-xs font-black text-emerald-950">{uploadValues.fileName}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-wide text-emerald-700">{uploadValues.fileSize || 'Size ready'} / {uploadValues.fileType.toUpperCase()}</p>
+                    </div>
+                    <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" />
+                  </div>
+                ) : (
+                  <p className="mt-2 text-[10px] font-bold text-slate-500">No file selected yet. Pick the actual lesson material before saving.</p>
+                )}
+                {uploadErrors.fileName && <p className="mt-2 text-[9px] text-rose-600 font-mono">{uploadErrors.fileName}</p>}
               </div>
 
               {isSchoolHead && (

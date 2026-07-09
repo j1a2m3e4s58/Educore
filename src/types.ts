@@ -254,11 +254,14 @@ export interface TeachingMaterial {
   category: 'PDF' | 'Notes' | 'Video' | 'Slides' | 'Textbook' | 'Scheme of Work' | 'Past Questions' | string;
   fileType: 'pdf' | 'mp4' | 'pptx' | 'docx' | 'xlsx' | string;
   fileSize?: string;
+  fileName?: string;
   downloadUrl?: string;
   gradeClassFilter?: string; // Class ID context
   subjectFilter?: string; // Subject ID context
   uploadedByTeacherId?: string;
   uploadedByTeacherName?: string;
+  uploadedByRole?: string;
+  shareScope?: 'SchoolShared' | 'TeacherOnly' | string;
   uploadDate: string;
 }
 
