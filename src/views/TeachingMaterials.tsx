@@ -831,10 +831,10 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
 
       {/* UPLOAD MATERIAL MODAL DIALOG */}
       {isUploadOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded border border-slate-200 w-full max-w-lg shadow-2xl relative overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-900/60 p-5 backdrop-blur-xs sm:p-8">
+          <div className="relative my-auto flex max-h-[calc(100vh-5rem)] w-full max-w-lg flex-col overflow-hidden rounded border border-slate-200 bg-white shadow-2xl">
             
-            <div className="p-4 bg-slate-50 border-b border-[#F1F5F9] flex justify-between items-center">
+            <div className="shrink-0 p-4 bg-slate-50 border-b border-[#F1F5F9] flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <Library className="w-4 h-4 text-blue-600" />
                 <h3 className="text-xs font-bold font-mono tracking-wider text-slate-600 uppercase">
@@ -846,7 +846,8 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
               </button>
             </div>
 
-            <form onSubmit={handleUploadSubmit} className="p-5 space-y-4">
+            <form onSubmit={handleUploadSubmit} className="flex min-h-0 flex-1 flex-col">
+              <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-5">
               {hasUploadDraft && (
                 <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs font-semibold text-amber-900">
                   Draft autosaved. You can close this box and come back without losing the material details.
@@ -908,8 +909,8 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
               </div>
 
               <div className={`rounded-xl border p-3 ${uploadErrors.fileName ? 'border-rose-300 bg-rose-50' : 'border-blue-100 bg-blue-50/70'}`}>
-                <label htmlFor="lesson-material-file" className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-blue-300 bg-white px-4 py-5 text-center hover:border-blue-500">
-                  <UploadCloud className="h-8 w-8 text-blue-600" />
+                <label htmlFor="lesson-material-file" className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-blue-300 bg-white px-4 py-4 text-center hover:border-blue-500">
+                  <UploadCloud className="h-7 w-7 text-blue-600" />
                   <span className="text-sm font-black text-slate-950">Choose file from this device</span>
                   <span className="text-[11px] font-semibold text-slate-500">PDF, Word, PowerPoint, Excel, video, image, or notes file</span>
                   <span className="rounded-full bg-blue-600 px-3 py-1 text-[10px] font-black uppercase tracking-wide text-white">Browse file</span>
@@ -1027,7 +1028,9 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
                 </div>
               </div>
 
-              <div className="pt-2 flex justify-end gap-2 text-xs">
+              </div>
+
+              <div className="shrink-0 border-t border-slate-100 bg-white px-5 py-3 flex justify-end gap-2 text-xs">
                 <button
                   type="button"
                   onClick={() => setIsUploadOpen(false)}
