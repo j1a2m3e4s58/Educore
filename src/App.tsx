@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   getSchoolsInStorage, 
   saveSchoolsInStorage, 
@@ -247,11 +247,9 @@ function PortalAssistBar({
             { label: 'Upload Material', tab: 'teacher-materials', keywords: 'materials files books slides upload upload book upload file teaching material' },
           ]
         : [
-            { label: role === 'Parent' ? 'Assignments' : 'Assignments', tab: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', keywords: 'assignment homework work task class work' },
-            { label: role === 'Parent' ? 'Fees' : 'Materials', tab: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', keywords: role === 'Parent' ? 'fees money payment bill balance cedis dollars owing' : 'materials notes files books slides library study' },
-            { label: 'Attendance', tab: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', keywords: 'attendance present absent late school today' },
-            { label: 'Messages', tab: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', keywords: 'message notice announcement update communication' },
-            { label: 'Calendar', tab: 'school-calendar', keywords: 'calendar events dates term semester' },
+            { label: role === 'Parent' ? 'Check Fees' : 'Assignments', tab: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', keywords: 'home dashboard fees money child absent assignments homework materials timetable report' },
+            { label: 'Calendar', tab: 'school-calendar', keywords: 'calendar events' },
+            { label: 'Hub', tab: 'edu-ecosystem', keywords: 'hub news' },
           ];
   const filtered = query.trim()
     ? suggestions.filter(item => `${item.label} ${item.keywords}`.toLowerCase().includes(query.toLowerCase())).slice(0, 4)
@@ -658,8 +656,8 @@ const pageGuides: Record<string, PageGuide> = {
     ],
   },
   'school-dashboard': {
-    title: 'Run the school today',
-    summary: 'Choose students, teachers, fees, messages, timetable, or reports.',
+    title: 'School Home',
+    summary: 'Choose the school work you want to do now.',
     start: 'Open Students',
     steps: ['Pick a big button', 'Search or add records', 'Use Help when stuck'],
     actions: [
@@ -724,8 +722,8 @@ const pageGuides: Record<string, PageGuide> = {
     ],
   },
   'teacher-dashboard': {
-    title: 'Teach today',
-    summary: 'Mark attendance, open materials, give assignments, or record lessons.',
+    title: 'Teacher Home',
+    summary: 'Start class work, attendance, lessons, or assignments.',
     start: 'Mark Attendance',
     steps: ['Choose class work', 'Update records', 'Save before leaving'],
     actions: [
@@ -768,8 +766,8 @@ const pageGuides: Record<string, PageGuide> = {
     ],
   },
   'parent-dashboard': {
-    title: 'Check your child today',
-    summary: 'Open assignments, fees, attendance, messages, and school dates.',
+    title: 'Parent Home',
+    summary: 'Check your child records, fees, and school messages.',
     start: 'Check Child',
     steps: ['Look at summary cards', 'Check messages', 'Open calendar if needed'],
     actions: [
@@ -779,8 +777,8 @@ const pageGuides: Record<string, PageGuide> = {
     ],
   },
   'student-dashboard': {
-    title: 'Do your school work',
-    summary: 'Open assignments, materials, timetable, study notes, and school dates.',
+    title: 'Student Home',
+    summary: 'See your lessons, assignments, and school updates.',
     start: 'Check Work',
     steps: ['Look at today', 'Open assignments', 'Check school calendar'],
     actions: [
@@ -2270,51 +2268,50 @@ function TaskModePanel({
 }) {
   const tasks = role === 'SchoolAdmin'
     ? [
-        { group: 'Do now', label: 'Students', hint: 'Add or find learners', tab: 'school-students', icon: Users },
-        { group: 'Do now', label: 'Teachers', hint: 'Add staff and workload', tab: 'school-teachers', icon: GraduationCap },
-        { group: 'Check records', label: 'Fees', hint: 'Bills and payments', tab: 'school-fees', icon: DollarSign },
-        { group: 'Messages/help', label: 'Messages', hint: 'Contact parents', tab: 'school-comm', icon: MessageSquare },
-        { group: 'Check records', label: 'Timetable', hint: 'Plan classes', tab: 'school-teachers', icon: Calendar },
-        { group: 'Check records', label: 'Review Work', hint: 'Check teacher activity', tab: 'school-review', icon: ClipboardCheck },
+        { label: 'Students', hint: 'Add or find learners', tab: 'school-students', icon: Users },
+        { label: 'Teachers', hint: 'Add staff and workload', tab: 'school-teachers', icon: GraduationCap },
+        { label: 'Fees', hint: 'Bills and payments', tab: 'school-fees', icon: DollarSign },
+        { label: 'Messages', hint: 'Contact parents', tab: 'school-comm', icon: MessageSquare },
+        { label: 'Timetable', hint: 'Plan classes', tab: 'school-teachers', icon: Calendar },
+        { label: 'Review Work', hint: 'Check teacher activity', tab: 'school-review', icon: ClipboardCheck },
       ]
     : role === 'Teacher'
       ? [
-          { group: 'Do now', label: 'Attendance', hint: 'Mark today class', tab: 'teacher-attendance', icon: ClipboardCheck },
-          { group: 'Do now', label: 'Materials', hint: 'Upload or view files', tab: 'teacher-materials', icon: BookOpen },
-          { group: 'Do now', label: 'Assignments', hint: 'Give class work', tab: 'teacher-assignments', icon: ClipboardList },
-          { group: 'Check records', label: 'Lesson Record', hint: 'Pages taught today', tab: 'teacher-lessons', icon: Calendar },
-          { group: 'Messages/help', label: 'AI Notes', hint: 'Make lesson notes', tab: 'teacher-ai-suite', icon: Cpu },
-          { group: 'Messages/help', label: 'AI Questions', hint: 'Set exam questions', tab: 'teacher-ai-suite', icon: Cpu },
+          { label: 'Attendance', hint: 'Mark today class', tab: 'teacher-attendance', icon: ClipboardCheck },
+          { label: 'Materials', hint: 'Upload or view files', tab: 'teacher-materials', icon: BookOpen },
+          { label: 'Assignments', hint: 'Give class work', tab: 'teacher-assignments', icon: ClipboardList },
+          { label: 'Lesson Record', hint: 'Pages taught today', tab: 'teacher-lessons', icon: Calendar },
+          { label: 'AI Notes', hint: 'Make lesson notes', tab: 'teacher-ai-suite', icon: Cpu },
+          { label: 'AI Questions', hint: 'Set exam questions', tab: 'teacher-ai-suite', icon: Cpu },
         ]
       : role === 'SuperAdmin'
         ? [
-            { group: 'Do now', label: 'Add School', hint: 'Create school account', tab: 'register', icon: PlusCircle },
-            { group: 'Check records', label: 'Schools', hint: 'Open all schools', tab: 'schools', icon: Building2 },
-            { group: 'Check records', label: 'Users', hint: 'Manage access', tab: 'roles', icon: Users },
-            { group: 'Messages/help', label: 'Support', hint: 'Check help requests', tab: 'sa-support-tickets', icon: HelpCircle },
+            { label: 'Add School', hint: 'Create school account', tab: 'register', icon: PlusCircle },
+            { label: 'Schools', hint: 'Open all schools', tab: 'schools', icon: Building2 },
+            { label: 'Users', hint: 'Manage access', tab: 'roles', icon: Users },
+            { label: 'Support', hint: 'Check help requests', tab: 'sa-support-tickets', icon: HelpCircle },
           ]
         : role === 'Parent'
           ? [
-              { group: 'Do now', label: 'Assignments', hint: 'Work given by teachers', tab: 'parent-dashboard', icon: BookOpen },
-              { group: 'Check records', label: 'Fees', hint: 'Bills and balance', tab: 'parent-dashboard', icon: DollarSign },
-              { group: 'Check records', label: 'Attendance', hint: 'Present or absent', tab: 'parent-dashboard', icon: ClipboardCheck },
-              { group: 'Messages/help', label: 'Messages', hint: 'School notices', tab: 'parent-dashboard', icon: MessageSquare },
-              { group: 'Messages/help', label: 'Calendar', hint: 'Events and dates', tab: 'school-calendar', icon: Calendar },
+              { label: 'Assignments', hint: 'Work given by teachers', tab: 'parent-dashboard', icon: BookOpen },
+              { label: 'Fees', hint: 'Bills and balance', tab: 'parent-dashboard', icon: DollarSign },
+              { label: 'Attendance', hint: 'Present or absent', tab: 'parent-dashboard', icon: ClipboardCheck },
+              { label: 'Messages', hint: 'School notices', tab: 'parent-dashboard', icon: MessageSquare },
+              { label: 'Calendar', hint: 'Events and dates', tab: 'school-calendar', icon: Calendar },
             ]
           : role === 'Student'
             ? [
-                { group: 'Do now', label: 'Assignments', hint: 'Homework to do', tab: 'student-dashboard', icon: BookOpen },
-                { group: 'Do now', label: 'Materials', hint: 'Notes and files', tab: 'student-dashboard', icon: Library },
-                { group: 'Check records', label: 'Timetable', hint: 'Today classes', tab: 'student-dashboard', icon: Calendar },
-                { group: 'Messages/help', label: 'AI Study Notes', hint: 'Revision help', tab: 'student-dashboard', icon: Cpu },
-                { group: 'Messages/help', label: 'Calendar', hint: 'Events and dates', tab: 'school-calendar', icon: Calendar },
+                { label: 'Assignments', hint: 'Homework to do', tab: 'student-dashboard', icon: BookOpen },
+                { label: 'Materials', hint: 'Notes and files', tab: 'student-dashboard', icon: Library },
+                { label: 'Timetable', hint: 'Today classes', tab: 'student-dashboard', icon: Calendar },
+                { label: 'AI Study Notes', hint: 'Revision help', tab: 'student-dashboard', icon: Cpu },
+                { label: 'Calendar', hint: 'Events and dates', tab: 'school-calendar', icon: Calendar },
               ]
         : [
-            { group: 'Do now', label: 'Home', hint: 'Main page', tab: getHomeTab(role), icon: Home },
-            { group: 'Check records', label: 'Calendar', hint: 'School dates', tab: 'school-calendar', icon: Calendar },
-            { group: 'Messages/help', label: 'Updates', hint: 'School information', tab: 'edu-ecosystem', icon: MessageSquare },
+            { label: 'Home', hint: 'Main page', tab: getHomeTab(role), icon: Home },
+            { label: 'Calendar', hint: 'School dates', tab: 'school-calendar', icon: Calendar },
+            { label: 'Updates', hint: 'School information', tab: 'edu-ecosystem', icon: MessageSquare },
           ];
-  const groups = ['Do now', 'Check records', 'Messages/help'];
 
   return (
     <section className="mb-3 rounded-2xl border border-blue-100 bg-white p-3 text-slate-950 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
@@ -2325,33 +2322,26 @@ function TaskModePanel({
         </div>
         <span className="hidden rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-800 sm:inline-flex">Choose one</span>
       </div>
-      <div className="mt-3 grid gap-3 sm:mt-4 lg:grid-cols-3">
-        {groups.map(group => (
-          <div key={group} className="rounded-2xl border border-slate-100 bg-slate-50/70 p-2">
-            <p className="px-1 pb-2 text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">{group}</p>
-            <div className="grid grid-cols-2 gap-2 lg:grid-cols-1">
-              {tasks.filter(task => task.group === group).map(task => {
-                const Icon = task.icon;
-                return (
-                  <button
-                    key={task.label}
-                    data-scroll-to={getSectionTarget(task.tab, task.label)}
-                    onClick={() => setActiveTab(task.tab)}
-                    className="flex min-h-20 flex-col items-start justify-between gap-2 rounded-2xl border border-slate-200 bg-white p-3 text-left text-xs font-black text-slate-950 shadow-sm transition hover:border-blue-200 hover:bg-blue-50 active:scale-95 sm:min-h-24 sm:p-4 sm:text-sm lg:min-h-18"
-                  >
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm sm:h-11 sm:w-11 sm:rounded-2xl">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <span>
-                      <span className="block">{task.label}</span>
-                      <span className="mt-1 block text-[10px] font-bold leading-tight text-slate-500 sm:text-xs">{task.hint}</span>
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+      <div className="mt-3 grid grid-cols-2 gap-2 sm:mt-4 sm:grid-cols-2 lg:grid-cols-6">
+        {tasks.map(task => {
+          const Icon = task.icon;
+          return (
+            <button
+              key={task.label}
+              data-scroll-to={getSectionTarget(task.tab, task.label)}
+              onClick={() => setActiveTab(task.tab)}
+              className="flex min-h-20 flex-col items-start justify-between gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-left text-xs font-black text-slate-950 transition hover:border-blue-200 hover:bg-blue-50 active:scale-95 sm:min-h-24 sm:p-4 sm:text-sm"
+            >
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm sm:h-11 sm:w-11 sm:rounded-2xl">
+                <Icon className="h-5 w-5" />
+              </span>
+              <span>
+                <span className="block">{task.label}</span>
+                <span className="mt-1 block text-[10px] font-bold leading-tight text-slate-500 sm:text-xs">{task.hint}</span>
+              </span>
+            </button>
+          );
+        })}
       </div>
     </section>
   );
@@ -2379,7 +2369,7 @@ function SchoolWorkflowMap({
         ];
 
     return (
-      <section id="more-tools-section" className="mb-3 scroll-mt-4 rounded-2xl border border-slate-200 bg-white/90 p-3 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
+      <section className="mb-3 rounded-2xl border border-slate-200 bg-white/90 p-3 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">Easy access</p>
@@ -2430,7 +2420,7 @@ function SchoolWorkflowMap({
     : ['Teacher performance statistics', 'Timetable planning', 'Subject-teacher matching', 'Parent fee visibility', 'Parent assignment visibility', 'School activity records'];
 
   return (
-    <section id="more-tools-section" className="mb-3 scroll-mt-4 rounded-2xl border border-slate-200 bg-white/90 p-3 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
+    <section className="mb-3 rounded-2xl border border-slate-200 bg-white/90 p-3 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">More school tools</p>
@@ -2483,29 +2473,33 @@ function MobileBottomNav({
   const items = role === 'SuperAdmin'
     ? [
         { id: 'dashboard', label: 'Home', icon: LayoutDashboard, target: 'page-live-content' },
+        { id: 'dashboard', label: 'Today', icon: Calendar, target: 'today-panel' },
         { id: 'schools', label: 'Work', icon: Building2, target: 'page-live-content' },
-        { id: 'sa-support-tickets', label: 'Messages', icon: MessageSquare, target: 'page-live-content' },
-        { id: 'dashboard', label: 'More', icon: Settings, target: 'more-tools-section' },
+        { id: 'roles', label: 'Reports', icon: FileText, target: 'reports-panel' },
+        { id: 'settings', label: 'More', icon: Settings, target: 'page-live-content' },
       ]
     : role === 'SchoolAdmin'
       ? [
           { id: 'school-dashboard', label: 'Home', icon: LayoutDashboard, target: 'page-live-content' },
-          { id: 'school-students', label: 'Work', icon: ClipboardCheck, target: 'page-live-content' },
-          { id: 'school-comm', label: 'Messages', icon: MessageSquare, target: 'messages-section' },
-          { id: 'school-dashboard', label: 'More', icon: Settings, target: 'more-tools-section' },
+          { id: 'school-dashboard', label: 'Today', icon: Calendar, target: 'today-panel' },
+          { id: 'school-review', label: 'Work', icon: ClipboardCheck, target: 'page-live-content' },
+          { id: 'school-log', label: 'Reports', icon: FileText, target: 'reports-panel' },
+          { id: 'school-settings', label: 'More', icon: Settings, target: 'page-live-content' },
         ]
       : role === 'Teacher'
         ? [
             { id: 'teacher-dashboard', label: 'Home', icon: LayoutDashboard, target: 'page-live-content' },
+            { id: 'teacher-dashboard', label: 'Today', icon: Calendar, target: 'today-panel' },
             { id: 'teacher-attendance', label: 'Work', icon: ClipboardCheck, target: 'page-live-content' },
-            { id: 'teacher-ai-suite', label: 'Messages', icon: MessageSquare, target: 'page-live-content' },
-            { id: 'teacher-dashboard', label: 'More', icon: Settings, target: 'more-tools-section' },
+            { id: 'teacher-log', label: 'Reports', icon: FileText, target: 'reports-panel' },
+            { id: 'teacher-materials', label: 'More', icon: Settings, target: 'page-live-content' },
           ]
         : [
             { id: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', label: 'Home', icon: LayoutDashboard, target: 'page-live-content' },
-            { id: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', label: 'Work', icon: BookOpen, target: 'assignments-section' },
-            { id: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', label: 'Messages', icon: MessageSquare, target: 'messages-section' },
-            { id: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', label: 'More', icon: Settings, target: 'more-tools-section' },
+            { id: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', label: 'Today', icon: Calendar, target: 'today-panel' },
+            { id: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', label: 'Work', icon: BookOpen, target: 'page-live-content' },
+            { id: role === 'Parent' ? 'parent-dashboard' : 'student-dashboard', label: 'Reports', icon: FileText, target: 'reports-panel' },
+            { id: 'school-calendar', label: 'More', icon: Settings, target: 'page-live-content' },
           ];
 
   return (
@@ -2700,8 +2694,7 @@ export default function App() {
   // Sidebar collapse toggle state
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const pendingScrollTargetRef = useRef<string | null>(null);
-  const [isSimpleMode, setIsSimpleMode] = useState<boolean>(() => localStorage.getItem('educore_simple_mode') !== 'false');
+  const [isSimpleMode, setIsSimpleMode] = useState<boolean>(true);
   const [portalLanguage, setPortalLanguage] = useState<PortalLanguage>('en');
   const [bigMode, setBigMode] = useState<boolean>(() => localStorage.getItem('educore_big_mode') === 'true');
   const [compactDashboard, setCompactDashboard] = useState<boolean>(() => localStorage.getItem('educore_compact_dashboard') !== 'false');
@@ -2727,15 +2720,7 @@ export default function App() {
   }, [compactDashboard]);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      const target = pendingScrollTargetRef.current;
-      if (target) {
-        scrollToPageTarget(target);
-        pendingScrollTargetRef.current = null;
-      } else {
-        scrollToMainWorkspace();
-      }
-    }, 180);
+    const timer = window.setTimeout(scrollToMainWorkspace, 120);
     return () => window.clearTimeout(timer);
   }, [activeTab]);
 
@@ -2752,8 +2737,7 @@ export default function App() {
       const element = event.target as HTMLElement | null;
       const trigger = element?.closest('[data-scroll-to]') as HTMLElement | null;
       if (trigger?.dataset.scrollTo) {
-        pendingScrollTargetRef.current = trigger.dataset.scrollTo || '';
-        window.setTimeout(() => scrollToPageTarget(trigger.dataset.scrollTo || ''), 220);
+        window.setTimeout(() => scrollToPageTarget(trigger.dataset.scrollTo || ''), 60);
         return;
       }
       const anchor = element?.closest('a[href^="#"]') as HTMLAnchorElement | null;
@@ -2766,16 +2750,6 @@ export default function App() {
     document.addEventListener('click', handleSmartScrollClick);
     return () => document.removeEventListener('click', handleSmartScrollClick);
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('educore_simple_mode', String(isSimpleMode));
-  }, [isSimpleMode]);
-
-  useEffect(() => {
-    if (currentUser && ['Teacher', 'Parent', 'Student'].includes(currentUser.role)) {
-      setIsSimpleMode(true);
-    }
-  }, [currentUser?.role]);
 
   useEffect(() => {
     const applyMobileTableLabels = () => {
