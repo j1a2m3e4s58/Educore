@@ -28,14 +28,14 @@ body {
 .login-page::before {
   content: "";
   position: absolute;
-  inset: -1.5rem;
+  inset: -0.35rem;
   z-index: -2;
   background-image:
     url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1800&q=82");
   background-size: cover;
   background-position: center;
-  filter: blur(10px);
-  transform: scale(1.04);
+  filter: blur(3px) saturate(1.08) contrast(1.04);
+  transform: scale(1.015);
 }
 
 .login-page::after {
@@ -44,9 +44,9 @@ body {
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(135deg, rgba(5, 16, 32, 0.72), rgba(18, 42, 74, 0.48)),
-    radial-gradient(circle at 50% 30%, rgba(26, 86, 219, 0.22), transparent 26rem),
-    rgba(2, 6, 23, 0.26);
+    linear-gradient(135deg, rgba(5, 16, 32, 0.44), rgba(18, 42, 74, 0.18)),
+    radial-gradient(circle at 50% 30%, rgba(26, 86, 219, 0.12), transparent 26rem),
+    rgba(2, 6, 23, 0.08);
 }
 
 .login-card {
