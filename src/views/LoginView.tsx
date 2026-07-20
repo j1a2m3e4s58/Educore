@@ -358,13 +358,6 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
 
   return (
     <div className="login-page min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-4 font-sans select-none relative overflow-hidden">
-      
-      {/* Dynamic Background branding grid lines simulation */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#E2E8F0_1px,transparent_1px),linear-gradient(to_bottom,#E2E8F0_1px,transparent_1px)] bg-[size:32px_32px] opacity-[0.4] pointer-events-none" />
-
-      {/* Glow elements */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl pointer-events-none select-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none select-none" />
 
       {/* CONTAINER CARD CONTENT */}
       <div className="login-card w-full max-w-md bg-white border border-banking-border rounded shadow-xl relative z-20 flex flex-col overflow-hidden">

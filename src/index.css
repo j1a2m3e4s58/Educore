@@ -20,6 +20,47 @@ body {
   min-height: 100vh;
 }
 
+.login-page {
+  isolation: isolate;
+  background: #081a2c !important;
+}
+
+.login-page::before {
+  content: "";
+  position: absolute;
+  inset: -1.5rem;
+  z-index: -2;
+  background-image:
+    url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1800&q=82");
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  transform: scale(1.04);
+}
+
+.login-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(135deg, rgba(5, 16, 32, 0.72), rgba(18, 42, 74, 0.48)),
+    radial-gradient(circle at 50% 30%, rgba(26, 86, 219, 0.22), transparent 26rem),
+    rgba(2, 6, 23, 0.26);
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(255, 255, 255, 0.34);
+  box-shadow: 0 28px 80px rgba(2, 6, 23, 0.38);
+  backdrop-filter: blur(18px);
+}
+
+.login-banner {
+  background:
+    linear-gradient(145deg, rgba(7, 25, 44, 0.98), rgba(12, 36, 64, 0.95)) !important;
+}
+
 ::selection {
   background: rgba(26, 86, 219, 0.18);
   color: #0f172a;
