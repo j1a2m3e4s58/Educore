@@ -217,7 +217,7 @@ export default function Sidebar({
     'school-comm': 'Messages',
     'school-calendar': 'Calendar',
     'school-academic-year': 'School Year',
-    'school-users': 'Access',
+    'school-users': 'Add Users',
     'school-permissions': 'User Access',
     'school-import': 'Import Data',
     'school-log': 'Activity',
@@ -238,25 +238,25 @@ export default function Sidebar({
   };
 
   const simpleCategories: Record<string, string> = {
-    'GLOBAL ADMIN': 'MAIN',
+    'GLOBAL ADMIN': 'Home',
     'STAGE 8 ECOSYSTEM': 'EXTRA',
     'STAGE 9 COMMERCIAL': 'EXTRA',
     'STAGE 10 EduOS': 'EXTRA',
     'SaaS SYSTEM CONTROLS': 'MANAGE',
-    'GLOBAL CONFIG': 'SETTINGS',
-    'CORE MONITOR': 'MAIN',
-    'ACADEMIC ROSTER': 'PEOPLE',
-    'SCHOOL MATRIX': 'ACADEMICS',
-    'ADMIN FINANCIALS': 'DAILY WORK',
-    'SYSTEM CONTROL': 'SETTINGS',
-    'COGNITIVE INTELLIGENCE': 'TOOLS',
-    'MY CLASSROOM': 'MAIN',
-    'ACADEMIC CORE': 'CLASS WORK',
-    RESOURCES: 'RESOURCES',
-    TRACKING: 'ACTIVITY',
-    'PARENT PORTAL': 'MAIN',
-    INFORMATION: 'INFO',
-    'STUDENT PORTAL': 'MAIN'
+    'GLOBAL CONFIG': 'Settings',
+    'CORE MONITOR': 'Home',
+    'ACADEMIC ROSTER': 'People',
+    'SCHOOL MATRIX': 'Learning',
+    'ADMIN FINANCIALS': 'Money / Messages',
+    'SYSTEM CONTROL': 'Settings',
+    'COGNITIVE INTELLIGENCE': 'Learning',
+    'MY CLASSROOM': 'Home',
+    'ACADEMIC CORE': 'Learning',
+    RESOURCES: 'Learning',
+    TRACKING: 'Reports',
+    'PARENT PORTAL': 'Home',
+    INFORMATION: 'Messages / Help',
+    'STUDENT PORTAL': 'Home'
   };
 
   const getNavLabel = (item: { id: string; label: string }) => simpleMode ? (simpleLabels[item.id] || item.label) : item.label;

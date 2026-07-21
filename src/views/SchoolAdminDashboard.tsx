@@ -75,7 +75,7 @@ export default function SchoolAdminDashboard({
                {simpleMode ? 'Manager / Head Account' : 'School manager workspace'}
             </span>
             <span className="text-[10px] items-center gap-1 font-mono text-emerald-600 bg-emerald-50 border border-emerald-100 px-1.5 py-0.5 rounded font-bold hidden sm:flex">
-               <Database className="w-2.5 h-2.5" /> SECURE_TENANT: {currentTenant?.id}
+               <Database className="w-2.5 h-2.5" /> Protected School: {currentTenant?.code || currentTenant?.id}
             </span>
           </div>
           <h2 className="text-[1.55rem] sm:text-xl font-black sm:font-bold font-display text-slate-900 tracking-tight mt-2.5 leading-tight">
@@ -88,7 +88,7 @@ export default function SchoolAdminDashboard({
 
         <div className="flex items-center justify-between gap-2.5 z-10 shrink-0 bg-slate-50 sm:bg-transparent border sm:border-0 border-slate-100 rounded-xl sm:rounded-none p-3 sm:p-0">
           <div className="text-left sm:text-right">
-             <p className="text-[10px] font-mono font-bold text-slate-400">SCHOOL CODE</p>
+             <p className="text-[10px] font-mono font-bold text-slate-400">SCHOOL</p>
              <p className="text-xs font-bold text-slate-800 uppercase mt-0.5">{currentTenant?.code || 'LOCAL'}</p>
           </div>
           <div className="w-12 h-12 bg-indigo-50 border border-indigo-100 text-[#1A56DB] font-display font-bold text-lg rounded shadow-sm flex items-center justify-center select-none uppercase">
@@ -102,11 +102,12 @@ export default function SchoolAdminDashboard({
           {[
             { label: 'Students', hint: 'View student records', icon: Users },
             { label: 'Teachers', hint: 'Manage teachers', icon: Cpu },
+            { label: 'Add Users', hint: 'Create logins', icon: Users },
             { label: 'Fees', hint: 'Payments and bills', icon: FileSpreadsheet },
             { label: 'Messages', hint: 'Contact parents', icon: Sparkles },
           ].map((action) => {
             const Icon = action.icon;
-            const tab = action.label === 'Students' ? 'school-students' : action.label === 'Teachers' ? 'school-teachers' : action.label === 'Fees' ? 'school-fees' : 'school-comm';
+            const tab = action.label === 'Students' ? 'school-students' : action.label === 'Teachers' ? 'school-teachers' : action.label === 'Add Users' ? 'school-users' : action.label === 'Fees' ? 'school-fees' : 'school-comm';
             return (
               <button
                 key={action.label}

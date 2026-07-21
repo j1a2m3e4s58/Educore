@@ -359,6 +359,22 @@ textarea:focus {
     padding-right: 0.625rem;
   }
 
+  .academic-scope-bar {
+    margin-bottom: 0.65rem !important;
+  }
+
+  .academic-scope-bar .portal-extra-tools {
+    padding-top: 0.15rem;
+  }
+
+  .academic-scope-bar input {
+    font-size: 0.94rem !important;
+  }
+
+  .offline-sync-status {
+    display: none !important;
+  }
+
   .app-content > section,
   .app-content > div:not(.fixed) {
     max-width: 100%;
@@ -459,14 +475,18 @@ textarea:focus {
 
   .fixed.inset-0,
   [class*="fixed inset-0"] {
-    padding: 0.75rem !important;
+    padding: max(1rem, env(safe-area-inset-top)) 1rem max(1rem, env(safe-area-inset-bottom)) !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .fixed.inset-0 > div,
   [class*="fixed inset-0"] > div {
-    max-width: min(100%, 42rem);
-    max-height: 92vh;
+    width: min(100%, 34rem) !important;
+    max-width: min(100%, 34rem) !important;
+    max-height: calc(100vh - 2rem) !important;
     overflow-y: auto;
+    margin: auto !important;
   }
 
   .app-content input,

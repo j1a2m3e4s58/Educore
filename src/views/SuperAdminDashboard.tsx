@@ -11,6 +11,7 @@ import {
   TrendingUp, 
   Activity, 
   Database, 
+  Users,
   UserCheck, 
   ShieldCheck, 
   PlusCircle, 
@@ -117,8 +118,9 @@ export default function SuperAdminDashboard({
         <div className="role-action-grid grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: 'Add School', hint: 'Register a new school', tab: 'register', icon: PlusCircle, color: 'text-blue-700 bg-blue-50 border-blue-100' },
+            { label: 'Add Users', hint: 'Create accounts', tab: 'roles', icon: Users, color: 'text-indigo-700 bg-indigo-50 border-indigo-100' },
             { label: 'All Schools', hint: 'View and manage schools', tab: 'schools', icon: Building2, color: 'text-emerald-700 bg-emerald-50 border-emerald-100' },
-            { label: 'Users', hint: 'Manage people and access', tab: 'roles', icon: UserCheck, color: 'text-indigo-700 bg-indigo-50 border-indigo-100' },
+            { label: 'User Access', hint: 'Manage people and access', tab: 'roles', icon: UserCheck, color: 'text-indigo-700 bg-indigo-50 border-indigo-100' },
             { label: 'Settings', hint: 'Change system setup', tab: 'settings', icon: Sliders, color: 'text-amber-700 bg-amber-50 border-amber-100' },
           ].map((action) => {
             const Icon = action.icon;

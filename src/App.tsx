@@ -217,12 +217,13 @@ function PortalAssistBar({
 }) {
   const [query, setQuery] = useState('');
   const [showHelp, setShowHelp] = useState(false);
+  const [showMoreTools, setShowMoreTools] = useState(false);
   const copy = quickWords.en;
   const suggestions = role === 'SuperAdmin'
     ? [
         { label: 'Add School', tab: 'register', keywords: 'add school register create' },
         { label: 'All Schools', tab: 'schools', keywords: 'school list all schools tenant academy institution' },
-        { label: 'Users', tab: 'roles', keywords: 'users people role access permission who can login staff accounts' },
+        { label: 'Add Users', tab: 'roles', keywords: 'add user users people role access permission who can login staff accounts create account' },
         { label: 'Settings', tab: 'settings', keywords: 'settings setup' },
         { label: 'Help Desk', tab: 'sa-support-tickets', keywords: 'support help ticket problem' },
       ]
@@ -232,6 +233,7 @@ function PortalAssistBar({
           { label: 'Teachers', tab: 'school-teachers', keywords: 'teachers staff teacher not working timetable subjects workload supervisor' },
           { label: 'Fees', tab: 'school-fees', keywords: 'fees payments invoices money cedis dollars bill owing debt term bill semester bill' },
           { label: 'Messages', tab: 'school-comm', keywords: 'messages parents communication notice announcement contact parent' },
+          { label: 'Add Users', tab: 'school-users', keywords: 'add user users login account create account parent teacher student manager access password invite' },
           { label: 'Timetable', tab: 'school-teachers', keywords: 'classes timetable schedule periods rooms publish' },
           { label: 'Subjects', tab: 'school-subjects', keywords: 'subjects courses lessons' },
           { label: 'Review Teachers', tab: 'school-review', keywords: 'review teachers performance statistics teacher not working hardworking lazy manager approval approve' },
@@ -280,14 +282,21 @@ function PortalAssistBar({
         </button>
         <button
           onClick={() => speakText(copy.simpleHelp, 'en')}
-          className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100"
+          className="hidden sm:flex w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 items-center justify-center border border-emerald-100"
           title={copy.read}
         >
           <Volume2 className="w-5 h-5" />
         </button>
+        <button
+          onClick={() => setShowMoreTools(value => !value)}
+          className="sm:hidden w-10 h-10 rounded-xl bg-slate-50 text-slate-700 flex items-center justify-center border border-slate-200 text-xs font-black"
+          title="More page tools"
+        >
+          More
+        </button>
       </div>
 
-      <div className="mt-2 flex items-center gap-1.5 overflow-x-auto">
+      <div className={`portal-extra-tools mt-2 items-center gap-1.5 overflow-x-auto ${showMoreTools ? 'flex' : 'hidden'} sm:flex`}>
         <button
           onClick={() => setFontScale(Math.max(90, fontScale - 6))}
           className="rounded-full px-3 py-1 text-[11px] font-black border shrink-0 bg-white text-slate-700 border-slate-200"
@@ -375,7 +384,7 @@ function OfflineSyncStatus() {
   }, []);
 
   return (
-    <div className={`mb-3 flex items-center justify-between gap-3 rounded-2xl border p-3 text-xs font-black shadow-sm ${
+    <div className={`offline-sync-status mb-3 flex items-center justify-between gap-3 rounded-2xl border p-3 text-xs font-black shadow-sm ${
       online ? 'border-emerald-100 bg-emerald-50 text-emerald-900' : 'border-amber-100 bg-amber-50 text-amber-950'
     }`}>
       <div className="flex items-center gap-2">
@@ -2275,6 +2284,7 @@ function TaskModePanel({
     ? [
         { group: 'Do now', label: 'Students', hint: 'Add or find learners', tab: 'school-students', icon: Users },
         { group: 'Do now', label: 'Teachers', hint: 'Add staff and workload', tab: 'school-teachers', icon: GraduationCap },
+        { group: 'Do now', label: 'Add Users', hint: 'Create logins', tab: 'school-users', icon: Users },
         { group: 'Check records', label: 'Fees', hint: 'Bills and payments', tab: 'school-fees', icon: DollarSign },
         { group: 'Messages/help', label: 'Messages', hint: 'Contact parents', tab: 'school-comm', icon: MessageSquare },
         { group: 'Check records', label: 'Timetable', hint: 'Plan classes', tab: 'school-teachers', icon: Calendar },
@@ -2291,9 +2301,10 @@ function TaskModePanel({
         ]
       : role === 'SuperAdmin'
         ? [
-            { group: 'Do now', label: 'Add School', hint: 'Create school account', tab: 'register', icon: PlusCircle },
-            { group: 'Check records', label: 'Schools', hint: 'Open all schools', tab: 'schools', icon: Building2 },
-            { group: 'Check records', label: 'Users', hint: 'Manage access', tab: 'roles', icon: Users },
+          { group: 'Do now', label: 'Add School', hint: 'Create school account', tab: 'register', icon: PlusCircle },
+          { group: 'Do now', label: 'Add Users', hint: 'Create accounts', tab: 'roles', icon: Users },
+          { group: 'Check records', label: 'Schools', hint: 'Open all schools', tab: 'schools', icon: Building2 },
+            { group: 'Check records', label: 'User Access', hint: 'Manage access', tab: 'roles', icon: Users },
             { group: 'Messages/help', label: 'Support', hint: 'Check help requests', tab: 'sa-support-tickets', icon: HelpCircle },
           ]
         : role === 'Parent'
@@ -4001,10 +4012,10 @@ export default function App() {
                         <div className="space-y-6">
                           <div className="bg-white rounded border border-banking-border p-5">
                             <h2 className="text-sm font-bold tracking-tight font-display text-slate-900 leading-none">
-                               Institutional Registry Index Ledger
+                               All Schools
                             </h2>
                             <p className="text-xs text-slate-400 mt-1.5">
-                               Comprehensive index list of deployed school instances. Block row-queries or tunnel across isolated nodes.
+                               View every school, open a school workspace, or check what needs attention.
                             </p>
                           </div>
 

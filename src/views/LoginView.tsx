@@ -408,7 +408,7 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
             /* ================= SUPER ADMIN FORM ================= */
             <form onSubmit={handleSuperSubmit} className="login-form space-y-4">
               <p className="text-[11px] text-slate-400 bg-slate-50 p-2.5 rounded border border-slate-200 leading-normal">
-                Credentials below are seeded. Click the login trigger to enter the Global multi-tenant ledger deployer.
+                Demo details are ready. Click login to open the main school system.
               </p>
 
               {/* Username/Email */}
@@ -459,7 +459,7 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
                 disabled={isSubmitting}
                 className="w-full py-2.5 bg-[#1A56DB] hover:bg-opacity-95 text-white rounded text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow mt-6 cursor-pointer disabled:bg-slate-300 disabled:cursor-not-allowed"
               >
-                <span>Deploy central clusters login</span>
+                <span>Open Super Admin Dashboard</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
 
@@ -585,10 +585,10 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-slate-900 leading-tight leading-none truncate max-w-[240px]">
-                      {activeSelectedSchool.name} Node
+                      {activeSelectedSchool.name}
                     </h4>
                     <p className="text-[9px] font-mono text-slate-400 mt-1 uppercase">
-                      TID_CLUSTER: {activeSelectedSchool.id}
+                      School record: {activeSelectedSchool.code}
                     </p>
                   </div>
                 </div>
@@ -613,7 +613,7 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
 
               {/* Tenant Admin Password */}
               <div className="space-y-1">
-                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Workspace Security Key</label>
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Password</label>
                 <div className="relative">
                   <KeyRound className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
                   <input
@@ -643,7 +643,7 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
                 disabled={isSubmitting}
                 className="w-full py-2.5 bg-[#1A56DB] hover:bg-opacity-95 text-white rounded text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow mt-6 cursor-pointer disabled:bg-slate-300 disabled:cursor-not-allowed font-sans uppercase tracking-wider"
               >
-                <span>Authorize & Enter Node Workspace</span>
+                <span>Login to School Portal</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
 
