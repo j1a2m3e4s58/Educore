@@ -299,6 +299,10 @@ export default function RoleManagement({
         </div>
       </div>
 
+      <div className="rounded border border-indigo-100 bg-indigo-50 p-3 text-xs font-semibold leading-relaxed text-indigo-950">
+        Production safety: this screen prepares the login records, role links, and invite messages. In a real deployment, the backend must also enforce these roles on every request so teachers, parents, and students cannot open manager data by editing the browser.
+      </div>
+
       {inviteMessage && (
         <section className="border border-emerald-200 bg-emerald-50 p-4">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">

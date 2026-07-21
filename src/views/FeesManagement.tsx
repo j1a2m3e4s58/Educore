@@ -28,6 +28,7 @@ import BackToPageMenu from '../components/BackToPageMenu';
 import SectionActionStrip from '../components/SectionActionStrip';
 import { saveWorkflowProgress } from '../data/workflowProgress';
 import { getTenantSettings } from '../data/mockData';
+import { backendApiEnabled, backendRecordPayment } from '../lib/backendApi';
 
 interface FeesManagementProps {
   user: User | null;
@@ -349,10 +350,26 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
   };
 
   // Log manual payments command helper
-  const handleRecordPaymentSubmit = (e: React.FormEvent) => {
+  const handleRecordPaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const invoice = invoices.find(inv => inv.id === targetInvoiceId);
     if (!invoice || paymentAmount <= 0) return;
+    let receiptReference = paymentRef || `MANUAL-${Date.now().toString().substring(6)}`;
+    if (backendApiEnabled()) {
+      try {
+        const paymentResult = await backendRecordPayment({
+          tenantId,
+          invoiceId: invoice.id,
+          amountPaid: paymentAmount,
+          currencyCode,
+          paymentMethod,
+          transactionReference: receiptReference,
+        });
+        receiptReference = paymentResult.receiptNumber;
+      } catch {
+        receiptReference = `LOCAL-${receiptReference}`;
+      }
+    }
 
     // Append Payment Row
     const paymentRec: PaymentRecord = {
@@ -363,7 +380,7 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
       studentName: invoice.studentName,
       amountPaid: paymentAmount,
       paymentMethod,
-      transactionReference: paymentRef || `MANUAL-${Date.now().toString().substring(6)}`,
+      transactionReference: receiptReference,
       datePaid: new Date().toISOString().split('T')[0],
       recordedBy: user?.name || 'Administrator',
       notes: paymentNotes
@@ -1209,10 +1226,10 @@ export default function FeesManagement({ user, currentTenant }: FeesManagementPr
                     onChange={e => setPaymentMethod(e.target.value as PaymentRecord['paymentMethod'])}
                     className="w-full px-3 py-2 text-xs border border-slate-200 rounded text-slate-800 font-bold"
                   >
-                    <option value="Manual Entry">Cash / Manual Entry</option>
+                    <option value="Manual Entry">Cash / Manual Receipt</option>
                     <option value="Mobile Money">Mobile Money</option>
-                    <option value="Bank Transfer">Bank Wire Transfer</option>
-                    <option value="Card Payment">Card Proxy Clearance</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                    <option value="Card Payment">Card Payment</option>
                   </select>
                 </div>
               </div>

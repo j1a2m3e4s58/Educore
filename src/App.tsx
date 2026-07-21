@@ -76,9 +76,10 @@ import RoleManagement from './components/RoleManagement';
 import SettingsPanel from './components/SettingsPanel';
 import GuidedTour from './components/GuidedTour';
 import PageErrorBoundary from './components/PageErrorBoundary';
-import { canAccessTab, clearPortalSession, getSafeTabForRole, restoreUserFromSession, savePortalSession } from './security/accessControl';
+import { canAccessTab, clearPortalSession, getAccessDecision, getSafeTabForRole, restoreUserFromSession, savePortalSession } from './security/accessControl';
 import { getWorkflowLabel, isWorkflowOverdue, listTenantWorkflowProgress, loadWorkflowProgress, saveWorkflowProgress } from './data/workflowProgress';
 import { AcademicTimeScope, archiveCurrentAcademicYear, getAcademicTimeScope, matchesAcademicTimeScope, saveAcademicTimeScope } from './data/academicTime';
+import { backendApiEnabled, backendAuditEvent, backendAuthorizeAccess } from './lib/backendApi';
 
 // Importing Lucide feedback icon
 import { X, CheckCircle2, ShieldAlert, Cpu, LayoutDashboard, Building2, Users, MessageSquare, Settings, PlusCircle, Calendar, Search, HelpCircle, Volume2, ArrowLeft, Home, DollarSign, ClipboardCheck, ClipboardList, GraduationCap, BookOpen, Library, LockKeyhole, WifiOff, Cloud, FileText } from 'lucide-react';
@@ -2270,6 +2271,39 @@ function TranslationReadinessPanel() {
     </section>
   );
 }
+
+function ProductionReadinessPanel({ role }: { role: User['role'] }) {
+  if (!['SuperAdmin', 'SchoolAdmin', 'AssistantAdmin'].includes(role)) return null;
+  const checks = [
+    { title: 'Backend role enforcement', detail: 'API endpoint /api/auth/authorize is wired for server-side page checks when backend mode is enabled.' },
+    { title: 'Real file storage', detail: 'Material uploads can request cloud upload/download links through /api/materials/upload-intent.' },
+    { title: 'Password reset', detail: 'Forgot password can call /api/auth/password-reset for email or SMS reset flows.' },
+    { title: 'Audit and activity logs', detail: 'Login and security events can be posted to /api/audit/events.' },
+    { title: 'Payments and receipts', detail: 'Fee records can send payment confirmation to /api/payments/record and store backend receipt numbers.' },
+  ];
+  return (
+    <section className="role-record-panel mb-3 rounded-2xl border border-indigo-100 bg-white p-3 text-slate-950 shadow-sm sm:mb-4 sm:rounded-3xl sm:p-4">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-700">Production safety</p>
+          <h2 className="text-base font-black text-slate-950">Backend-ready controls are prepared</h2>
+          <p className="mt-1 text-sm font-semibold leading-relaxed text-slate-600">Turn on the backend API when the school wants real server enforcement, storage, reset emails, audit logs, and payments.</p>
+        </div>
+        <span className="w-fit rounded-full border border-amber-100 bg-amber-50 px-3 py-2 text-xs font-black text-amber-800">
+          Demo uses local storage
+        </span>
+      </div>
+      <div className="mt-3 grid gap-2 md:grid-cols-2 xl:grid-cols-5">
+        {checks.map(item => (
+          <div key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+            <p className="text-xs font-black text-slate-950">{item.title}</p>
+            <p className="mt-1 text-[11px] font-semibold leading-relaxed text-slate-600">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
 function TaskModePanel({
   role,
   activeTab,
@@ -3348,14 +3382,30 @@ export default function App() {
 
   const secureSetActiveTab = (tab: string) => {
     if (!currentUser) return;
-    if (canAccessTab(currentUser, tab)) {
+    const decision = getAccessDecision(currentUser, tab, currentTenant?.id);
+    if (decision.allowed) {
       setActiveTab(tab);
+      if (backendApiEnabled()) {
+        backendAuthorizeAccess({
+          userId: currentUser.id,
+          tenantId: currentTenant?.id || currentUser.tenantId,
+          role: currentUser.role,
+          tab,
+        }).then(result => {
+          if (!result.allowed) {
+            setActiveTab(getSafeTabForRole(currentUser.role));
+            triggerToast(result.reason || 'The server blocked this page for your account.', 'error');
+          }
+        }).catch(() => {
+          triggerToast('Backend role check is offline, so local role rules are being used for this demo.', 'info');
+        });
+      }
       return;
     }
 
     const safeTab = getSafeTabForRole(currentUser.role);
     setActiveTab(safeTab);
-    triggerToast('This page is protected for another role. You were returned to your own home page.', 'error');
+    triggerToast(decision.reason || 'This page is protected for another role. You were returned to your own home page.', 'error');
     appendActivityLog({
       tenantId: currentUser.tenantId === 'SUPER_ADMIN' ? 'GLOBAL' : currentUser.tenantId,
       user: currentUser.name,
@@ -3578,6 +3628,15 @@ export default function App() {
       details: `${event.status}: ${event.detail}`,
       type: event.status === 'success' || event.status === 'password_changed' ? 'success' : event.status === 'failed' ? 'error' : 'warning'
     });
+    if (backendApiEnabled()) {
+      backendAuditEvent({
+        tenantId: event.tenantId,
+        user: event.email,
+        action: 'Login Audit',
+        details: `${event.status}: ${event.detail}`,
+        type: event.status,
+      }).catch(() => undefined);
+    }
   };
 
   const handlePasswordChange = (password: string) => {
@@ -3737,6 +3796,7 @@ export default function App() {
           </div>
         ) : (
         <div className="h-screen flex overflow-hidden">
+          <a href="#page-live-content" className="skip-link">Skip to main page</a>
           
           {/* NAVY LEFT SIDEBAR */}
           <Sidebar 
@@ -3866,6 +3926,7 @@ export default function App() {
               )}
               {!isSimpleMode && (
                 <>
+                  <ProductionReadinessPanel role={currentUser.role} />
                   <CompleteTodayChecklist
                     role={currentUser.role}
                     tenantId={currentTenant?.id}

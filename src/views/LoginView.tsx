@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 import { School, User } from '../types';
 import { isActiveUser } from '../security/accessControl';
-import { backendApiEnabled, backendLogin } from '../lib/backendApi';
+import { backendApiEnabled, backendLogin, backendRequestPasswordReset } from '../lib/backendApi';
 import { EDUCORE_BUILD_LABEL } from '../lib/version';
 
 const MAX_FAILED_LOGIN_ATTEMPTS = 5;
@@ -333,6 +333,18 @@ export default function LoginView({ schools, onLoginSuccess, allUsers, onCreateU
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setErrorMessage('Enter the email or username used for this school account.');
+      return;
+    }
+    if (backendApiEnabled()) {
+      backendRequestPasswordReset({ tenantId: selectedSchoolId, schoolName: schoolObj.name, email })
+        .then(result => {
+          onLoginAudit?.({ tenantId: selectedSchoolId, email, status: 'pending', detail: `Backend password reset requested: ${result.requestId}` });
+          setSuccessMsg(result.message || `Password reset request sent to ${schoolObj.name}.`);
+          setSchoolEmail(email);
+          setForgotEmail('');
+          setActiveTab('school');
+        })
+        .catch(error => setErrorMessage(error.message));
       return;
     }
     const key = `educore_password_reset_requests_${selectedSchoolId}`;

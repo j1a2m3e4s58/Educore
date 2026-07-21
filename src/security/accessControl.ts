@@ -142,6 +142,20 @@ export function canAccessTenant(user: User | null, tenantId?: string | null): bo
   return Boolean(tenantId && user.tenantId === tenantId);
 }
 
+export function getAccessDecision(user: User | null, tab: string, tenantId?: string | null): { allowed: boolean; reason: string } {
+  if (!user) return { allowed: false, reason: 'No active login session.' };
+  if (!isActiveUser(user)) return { allowed: false, reason: 'This user account is not active.' };
+  if (!canAccessTab(user, tab)) return { allowed: false, reason: `${user.role} cannot open this page.` };
+  if (tenantId && !canAccessTenant(user, tenantId)) return { allowed: false, reason: 'This record belongs to another school.' };
+  return { allowed: true, reason: 'Allowed by role and school scope.' };
+}
+
+export function assertTenantRecordAccess(user: User | null, tenantId?: string | null) {
+  if (!canAccessTenant(user, tenantId)) {
+    throw new Error('Access denied: this school record is outside the current user school.');
+  }
+}
+
 export function isActiveUser(user: User | null): boolean {
   return Boolean(user && user.status === 'Active');
 }
@@ -199,6 +213,10 @@ export function restoreUserFromSession(users: User[], schools: School[]): { user
   }
   const tenant = user?.role === 'SuperAdmin' ? null : schools.find(school => school.id === user?.tenantId) || null;
   if (user?.role !== 'SuperAdmin' && !tenant) {
+    clearPortalSession();
+    return null;
+  }
+  if (user?.role !== session.role || user?.tenantId !== session.tenantId) {
     clearPortalSession();
     return null;
   }

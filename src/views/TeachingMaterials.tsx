@@ -30,6 +30,7 @@ import {
 import BackToPageMenu from '../components/BackToPageMenu';
 import SectionActionStrip from '../components/SectionActionStrip';
 import { saveWorkflowProgress } from '../data/workflowProgress';
+import { backendApiEnabled, backendUploadMaterialFile } from '../lib/backendApi';
 
 interface TeachingMaterialsProps {
   user: User;
@@ -200,7 +201,7 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
   };
 
   // Submit materials upload simulation
-  const handleUploadSubmit = (e: React.FormEvent) => {
+  const handleUploadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setUploadErrors({});
     setSuccessMsg('');
@@ -217,6 +218,31 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
       return;
     }
 
+    let downloadUrl = uploadValues.fileName;
+    let storageNote = 'Demo local attachment metadata. Connect cloud storage for real downloads.';
+    let storageProvider = 'DemoLocal';
+    let storageStatus = 'metadata-only';
+    if (backendApiEnabled()) {
+      try {
+        const uploadResult = await backendUploadMaterialFile({
+          tenantId,
+          fileName: uploadValues.fileName,
+          fileType: uploadValues.fileType,
+          fileSize: uploadValues.fileSize,
+          title: uploadValues.title,
+          classId: uploadValues.gradeClassFilter,
+          subjectId: uploadValues.subjectFilter,
+        });
+        downloadUrl = uploadResult.downloadUrl;
+        storageNote = `Cloud storage key: ${uploadResult.storageKey}`;
+        storageProvider = 'BackendCloud';
+        storageStatus = 'uploaded';
+      } catch (error: any) {
+        setUploadErrors({ fileName: error.message || 'Cloud storage could not prepare this upload.' });
+        return;
+      }
+    }
+
     const currentM = getTeachingMaterialsInStorage(tenantId);
     const shareScope = isSchoolHead && uploadValues.shareScope === 'SchoolShared' ? 'SchoolShared' : 'TeacherOnly';
     const uploaderId = shareScope === 'SchoolShared' ? `school_shared_${tenantId}` : teacherProfile.id;
@@ -230,7 +256,9 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
       fileType: uploadValues.fileType,
       fileSize: uploadValues.fileSize,
       fileName: uploadValues.fileName,
-      downloadUrl: uploadValues.fileName,
+      downloadUrl,
+      storageProvider,
+      storageStatus,
       gradeClassFilter: uploadValues.gradeClassFilter,
       subjectFilter: uploadValues.subjectFilter,
       uploadedByTeacherId: uploaderId,
@@ -250,7 +278,7 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
       teacherId: shareScope === 'SchoolShared' ? user.id : teacherProfile.id,
       teacherName: uploaderName,
       action: 'Uploaded Material',
-      details: `Uploaded material: "${uploadValues.title}" (${uploadValues.category}). Size: ${uploadValues.fileSize}`
+      details: `Uploaded material: "${uploadValues.title}" (${uploadValues.category}). Size: ${uploadValues.fileSize}. ${storageNote}`
     });
 
     setMaterials(updatedM);
@@ -695,6 +723,13 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
                           School Shared
                         </span>
                       )}
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase border ${
+                        mat.storageProvider === 'BackendCloud'
+                          ? 'bg-indigo-50 text-indigo-700 border-indigo-100'
+                          : 'bg-amber-50 text-amber-700 border-amber-100'
+                      }`}>
+                        {mat.storageProvider === 'BackendCloud' ? 'Cloud File' : 'Demo File'}
+                      </span>
                     </div>
                     <span className="text-[10px] uppercase bg-slate-100 text-slate-600 rounded px-2 py-0.5 select-all text-[9.5px] font-mono font-bold">
                       .{mat.fileType}
@@ -933,6 +968,9 @@ export default function TeachingMaterials({ user, currentTenant }: TeachingMater
                 ) : (
                   <p className="mt-2 text-[10px] font-bold text-slate-500">No file selected yet. Pick the actual lesson material before saving.</p>
                 )}
+                <p className="mt-2 text-[10px] font-semibold text-blue-700">
+                  Production mode will upload this file to cloud storage and save a secure download link. Demo mode saves the file name and details only.
+                </p>
                 {uploadErrors.fileName && <p className="mt-2 text-[9px] text-rose-600 font-mono">{uploadErrors.fileName}</p>}
               </div>
 

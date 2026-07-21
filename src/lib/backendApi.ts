@@ -41,6 +41,71 @@ export async function backendLogin(email: string, password: string, schoolId?: s
   return result;
 }
 
+export async function backendAuthorizeAccess(payload: {
+  userId: string;
+  tenantId: string;
+  role: User['role'];
+  tab: string;
+}) {
+  return request<{ ok: boolean; allowed: boolean; reason?: string }>('/api/auth/authorize', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function backendAuditEvent(event: {
+  tenantId: string | 'GLOBAL';
+  user: string;
+  action: string;
+  details: string;
+  type?: string;
+}) {
+  return request<{ ok: boolean; id: string }>('/api/audit/events', {
+    method: 'POST',
+    body: JSON.stringify(event),
+  });
+}
+
+export async function backendRequestPasswordReset(payload: {
+  tenantId: string;
+  schoolName: string;
+  email: string;
+}) {
+  return request<{ ok: boolean; message: string; requestId: string }>('/api/auth/password-reset', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function backendUploadMaterialFile(payload: {
+  tenantId: string;
+  fileName: string;
+  fileType: string;
+  fileSize: string;
+  title: string;
+  classId: string;
+  subjectId: string;
+}) {
+  return request<{ ok: boolean; storageKey: string; downloadUrl: string }>('/api/materials/upload-intent', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function backendRecordPayment(payload: {
+  tenantId: string;
+  invoiceId: string;
+  amountPaid: number;
+  currencyCode: string;
+  paymentMethod: string;
+  transactionReference: string;
+}) {
+  return request<{ ok: boolean; receiptNumber: string; status: string }>('/api/payments/record', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
 export async function backendLogout() {
   try {
     await request('/api/auth/logout', { method: 'POST' });

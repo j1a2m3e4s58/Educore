@@ -257,6 +257,8 @@ export interface TeachingMaterial {
   fileSize?: string;
   fileName?: string;
   downloadUrl?: string;
+  storageProvider?: 'DemoLocal' | 'BackendCloud' | string;
+  storageStatus?: 'metadata-only' | 'uploaded' | 'pending' | string;
   teacherId?: string;
   uploadedBy?: string;
   classId?: string;
