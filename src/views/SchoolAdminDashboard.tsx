@@ -64,7 +64,7 @@ export default function SchoolAdminDashboard({
     <div className="school-dashboard-page space-y-4 sm:space-y-6 font-sans select-none animate-in fade-in duration-200 max-w-full">
       
       {/* CONTEXT SCHOOL OVERVIEW HERO */}
-      <div className="bg-white rounded-2xl sm:rounded-lg border border-banking-border p-4 sm:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 relative overflow-hidden shadow-sm">
+      <div className="role-hero role-hero-manager rounded-2xl sm:rounded-lg border border-banking-border p-4 sm:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 relative overflow-hidden shadow-sm">
         <div className="absolute right-0 top-0 opacity-[0.03] translate-x-12 -translate-y-8 select-none pointer-events-none">
           <BookOpen className="w-56 h-56 text-blue-900" />
         </div>
@@ -98,7 +98,7 @@ export default function SchoolAdminDashboard({
       </div>
 
       {simpleMode && (
-        <div className="manager-action-grid grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="role-action-grid manager-action-grid grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: 'Students', hint: 'View student records', icon: Users },
             { label: 'Teachers', hint: 'Manage teachers', icon: Cpu },

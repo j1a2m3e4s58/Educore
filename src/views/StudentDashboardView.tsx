@@ -232,10 +232,10 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
   };
 
   return (
-    <div className="space-y-6 select-text">
+    <div className="student-dashboard-page space-y-6 select-text">
       
       {/* STUDENT HEADER PORTAL FRAME */}
-      <div className="bg-[#031525] text-white p-5 rounded-lg border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="role-hero role-hero-student text-white p-5 rounded-lg border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1.5">
           <span className="text-[9px] font-mono font-bold bg-[#1A56DB] text-white px-2.5 py-0.5 rounded uppercase tracking-wider">
              DO SCHOOL WORK
@@ -252,7 +252,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
         </div>
       </div>
 
-      <div className="rounded-lg border border-emerald-100 bg-emerald-50/60 p-4 shadow-sm">
+      <div className="role-record-panel rounded-lg border border-emerald-100 bg-emerald-50/60 p-4 shadow-sm">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">What should I do now?</p>
@@ -260,7 +260,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
           </div>
           <span className="w-fit rounded-full border border-emerald-200 bg-white px-3 py-1 text-[10px] font-black text-emerald-800">{periodLabel}</span>
         </div>
-        <div className="mt-3 grid gap-2 md:grid-cols-4">
+        <div className="role-action-grid mt-3 grid gap-2 md:grid-cols-4">
           {nowActions.map(item => (
             <button
               key={item.label}
@@ -311,7 +311,7 @@ export default function StudentDashboardView({ user, currentTenant }: StudentDas
 
       </div>
 
-      <div className="rounded-lg border border-blue-100 bg-white p-4 shadow-sm">
+      <div className="role-record-panel rounded-lg border border-blue-100 bg-white p-4 shadow-sm">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-wider text-blue-700">Student timeline</p>

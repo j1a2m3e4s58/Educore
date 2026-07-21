@@ -236,7 +236,7 @@ export default function TeacherDashboard({
       )}
       
       {/* ENTERPRISE PAGE HEADER */}
-      <div className="bg-white rounded border border-[#E2E8F0] p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
+      <div className="role-hero role-hero-teacher rounded border border-[#E2E8F0] p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
         <div>
           <span className="text-[10px] bg-[#EBF5FF] text-[#1E40AF] px-2 py-0.5 rounded-sm font-mono font-bold uppercase tracking-wider">
             TEACH TODAY
@@ -262,7 +262,7 @@ export default function TeacherDashboard({
         </div>
       </div>
 
-      <div className="teacher-mobile-start hidden bg-white border border-[#E2E8F0] p-3 shadow-sm">
+      <div className="role-record-panel teacher-mobile-start hidden bg-white border border-[#E2E8F0] p-3 shadow-sm">
         <p className="text-[11px] font-black uppercase tracking-wide text-[#1A56DB]">Start work</p>
         <div className="mt-2 grid grid-cols-2 gap-2">
           <button

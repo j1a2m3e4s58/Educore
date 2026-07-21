@@ -58,10 +58,10 @@ export default function SuperAdminDashboard({
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6 font-sans select-none animate-in fade-in duration-300 max-w-full">
+    <div className="super-admin-dashboard-page space-y-4 sm:space-y-6 font-sans select-none animate-in fade-in duration-300 max-w-full">
       
       {/* MONOTONE WELCOME BOX */}
-      <div className="bg-[#0A1E33] sm:bg-white rounded-2xl sm:rounded-lg border border-[#163554] sm:border-slate-200 p-4 sm:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 sm:gap-5 shadow-lg shadow-slate-900/10 sm:shadow-sm relative overflow-hidden">
+      <div className="role-hero role-hero-super bg-[#0A1E33] sm:bg-white rounded-2xl sm:rounded-lg border border-[#163554] sm:border-slate-200 p-4 sm:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 sm:gap-5 shadow-lg shadow-slate-900/10 sm:shadow-sm relative overflow-hidden">
         <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-blue-500/20 blur-2xl sm:hidden" />
         <div className="space-y-2 min-w-0">
           <div className="flex items-center gap-2 sm:hidden">
@@ -114,7 +114,7 @@ export default function SuperAdminDashboard({
       </div>
 
       {simpleMode && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="role-action-grid grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: 'Add School', hint: 'Register a new school', tab: 'register', icon: PlusCircle, color: 'text-blue-700 bg-blue-50 border-blue-100' },
             { label: 'All Schools', hint: 'View and manage schools', tab: 'schools', icon: Building2, color: 'text-emerald-700 bg-emerald-50 border-emerald-100' },

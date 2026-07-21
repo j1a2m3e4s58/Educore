@@ -196,10 +196,10 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
   }, [tenantId, timetableStatus, student?.classId]);
 
   return (
-    <div className="space-y-6 select-text">
+    <div className="parent-dashboard-page space-y-6 select-text">
       
       {/* PARENT INTRO HEADER ELEMENT */}
-      <div className="bg-gradient-to-r from-[#031525] to-[#11253C] text-white p-6 rounded-lg border border-slate-800 shadow">
+      <div className="role-hero role-hero-parent text-white p-6 rounded-lg border border-slate-800 shadow">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <span className="text-[9px] font-mono font-bold bg-[#1A56DB] text-white px-2.5 py-0.5 rounded uppercase tracking-wider">
@@ -235,7 +235,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
         </div>
       )}
 
-      <div className="rounded-lg border border-emerald-100 bg-emerald-50/60 p-4 shadow-sm">
+      <div className="role-record-panel rounded-lg border border-emerald-100 bg-emerald-50/60 p-4 shadow-sm">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Today summary</p>
@@ -243,7 +243,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
           </div>
           <span className="w-fit rounded-full border border-emerald-200 bg-white px-3 py-1 text-[10px] font-black text-emerald-800">{digestDate}</span>
         </div>
-        <div className="mt-3 grid gap-2 md:grid-cols-4">
+        <div className="role-action-grid mt-3 grid gap-2 md:grid-cols-4">
           {dailyDigest.map(item => (
             <button
               key={item.title}
@@ -260,7 +260,7 @@ export default function ParentDashboardView({ user, currentTenant }: ParentDashb
         </div>
       </div>
 
-      <div className="rounded-lg border border-blue-100 bg-white p-4 shadow-sm">
+      <div className="role-record-panel rounded-lg border border-blue-100 bg-white p-4 shadow-sm">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-wider text-blue-700">Family timeline</p>

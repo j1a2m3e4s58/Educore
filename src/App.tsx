@@ -1434,7 +1434,7 @@ function FirstTimeSetupWizard({ role, setActiveTab }: { role: User['role']; setA
             : 'Start here';
 
   return (
-    <section className="role-onboarding-card mb-3 rounded-2xl border border-blue-100 bg-white p-3 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
+    <section className="role-onboarding-card role-record-panel mb-3 rounded-2xl border border-blue-100 bg-white p-3 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">Start here</p>
@@ -2320,7 +2320,7 @@ function TaskModePanel({
   const groups = ['Do now', 'Check records', 'Messages/help'];
 
   return (
-    <section className="mb-3 rounded-2xl border border-blue-100 bg-white p-3 text-slate-950 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
+    <section className="role-record-panel mb-3 rounded-2xl border border-blue-100 bg-white p-3 text-slate-950 shadow-lg shadow-slate-900/5 sm:mb-4 sm:rounded-3xl sm:p-4">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">Main buttons</p>
@@ -2333,7 +2333,7 @@ function TaskModePanel({
         {groups.map(group => (
           <div key={group} className="rounded-2xl border border-slate-100 bg-slate-50/70 p-2">
             <p className="px-1 pb-2 text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">{group}</p>
-            <div className="grid grid-cols-2 gap-2 lg:grid-cols-1">
+            <div className="role-action-grid grid grid-cols-2 gap-2 lg:grid-cols-1">
               {tasks.filter(task => task.group === group).map(task => {
                 const Icon = task.icon;
                 return (
